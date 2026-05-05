@@ -1,13 +1,1076 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- 
+  index.html — Página informativa sobre:
+  "Mantenimiento y Aseguramiento de la Operación del Sistema Informático"
+  
+  Estructura: HTML5 semántico con secciones navegables por menú.
+  Autor: Proyecto académico
+  Versión: 1.0
+-->
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejemplo página web básica</title>
-    <h1>Ejercicio de Mariela</h1>
+  <!-- ── META TAGS ─────────────────────────────────────────────
+       Configuraciones esenciales del documento HTML:
+       charset: codificación UTF-8 para caracteres especiales (tildes, ñ)
+       viewport: hace la página responsiva en dispositivos móviles
+  ─────────────────────────────────────────────────────────── -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Recurso informativo sobre mantenimiento y aseguramiento de la operación del sistema informático: tipos, herramientas y procedimientos." />
+  <meta name="keywords" content="mantenimiento informático, sistema, preventivo, correctivo, hardware, software" />
+  <title>Mantenimiento del Sistema Informático</title>
+
+  <!-- ── ENLACE AL ARCHIVO CSS ─────────────────────────────────
+       Carga la hoja de estilos externa style.css.
+       rel="stylesheet" indica que es un archivo de estilos.
+  ─────────────────────────────────────────────────────────── -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- ── FAVICON (ícono de la pestaña del navegador) ──────────
+       Emoji como favicon para compatibilidad máxima.
+  ─────────────────────────────────────────────────────────── -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖥️</text></svg>" />
 </head>
+
 <body>
-    <!--En esta parte se coloca todo lo que va a encontrar la página web-->
-    <p>Este es mi segundo repositorio con este archivo modificado</p>
+
+<!-- ── BARRA DE PROGRESO DE LECTURA ──────────────────────────
+     Barra verde en la parte superior que indica qué tan lejos
+     ha llegado el usuario en el scroll de la página.
+     Su ancho (%) se actualiza dinámicamente con JavaScript.
+─────────────────────────────────────────────────────────── -->
+<div id="progress-bar" aria-hidden="true"></div>
+
+<!-- ── NAVEGACIÓN PRINCIPAL ──────────────────────────────────
+     Barra de navegación fija con links a cada sección.
+     id="navbar" permite que JavaScript lo detecte al hacer scroll.
+     role="navigation" mejora la accesibilidad para lectores de pantalla.
+─────────────────────────────────────────────────────────── -->
+<nav id="navbar" role="navigation" aria-label="Menú principal">
+  <!-- Logo de la barra de navegación -->
+  <a href="#inicio" class="nav-logo" aria-label="Ir al inicio">
+    SysOps Manual
+  </a>
+
+  <!-- Botón hamburguesa: solo visible en móviles
+       aria-expanded y aria-controls mejoran la accesibilidad -->
+  <button class="nav-toggle" 
+          id="nav-toggle"
+          aria-expanded="false" 
+          aria-controls="nav-links"
+          aria-label="Abrir menú">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <!-- Lista de links de navegación.
+       Cada <a> apunta a un id de sección con href="#id"
+       El JS agrega/quita la clase "active" al hacer scroll. -->
+  <ul class="nav-links" id="nav-links" role="list">
+    <li><a href="#inicio"        class="nav-link active">Inicio</a></li>
+    <li><a href="#conceptos"     class="nav-link">Conceptos</a></li>
+    <li><a href="#tipos"         class="nav-link">Tipos</a></li>
+    <li><a href="#herramientas"  class="nav-link">Herramientas</a></li>
+    <li><a href="#procedimientos" class="nav-link">Procedimientos</a></li>
+    <li><a href="#contacto"      class="nav-link">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════
+     SECCIÓN 1: INICIO (HERO)
+     Pantalla de bienvenida a pantalla completa.
+     id="inicio" es el ancla para el link de navegación.
+════════════════════════════════════════════════════════ -->
+<section id="inicio" aria-labelledby="hero-heading">
+  <div class="hero-content">
+
+    <!-- Etiqueta de módulo -->
+    <span class="hero-badge">Módulo de Sistemas Informáticos</span>
+
+    <!-- Título principal dividido en dos líneas para efecto visual -->
+    <h1 class="hero-title" id="hero-heading">
+      <span class="line1">Mantenimiento</span><br/>
+      <span class="line2">del Sistema Informático</span>
+    </h1>
+
+    <!-- Descripción corta del tema -->
+    <p class="hero-desc">
+      Guía completa sobre el mantenimiento preventivo, correctivo y predictivo 
+      de sistemas informáticos. Aprende herramientas, procedimientos y 
+      mejores prácticas del sector.
+    </p>
+
+    <!-- Botones de acción: el primero lleva a conceptos, el segundo a procedimientos -->
+    <div class="hero-btns">
+      <a href="#conceptos" class="btn-primary">
+        ▶ Explorar Contenido
+      </a>
+      <a href="#procedimientos" class="btn-outline">
+        📋 Ver Procedimientos
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Divisor visual entre secciones -->
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════════════════════════
+     ESTADÍSTICAS RÁPIDAS
+     Fila de números que resumen datos clave del tema.
+     Se ubica entre la sección Hero y la de Conceptos.
+════════════════════════════════════════════════════════ -->
+<div class="section" aria-label="Estadísticas clave">
+  <div class="stats-row">
+    <!-- Cada stat-item muestra un número grande y su descripción -->
+    <div class="stat-item">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Tipos de Mantenimiento</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">70%</div>
+      <div class="stat-label">Fallas Prevenibles</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">12+</div>
+      <div class="stat-label">Herramientas Clave</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">6</div>
+      <div class="stat-label">Fases del Procedimiento</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════════════════════════
+     SECCIÓN 2: CONCEPTOS FUNDAMENTALES
+     Definiciones y términos clave del área.
+     id="conceptos" es el ancla para el menú de navegación.
+════════════════════════════════════════════════════════ -->
+<section id="conceptos" aria-labelledby="conceptos-heading">
+  <div class="section">
+
+    <!-- Encabezado de la sección -->
+    <div class="section-header">
+      <span class="section-tag">// 01 — Fundamentos</span>
+      <h2 class="section-title" id="conceptos-heading">
+        Conceptos<br/>Fundamentales
+      </h2>
+      <p class="section-sub">
+        Terminología esencial para comprender el mantenimiento y la 
+        operación continua de los sistemas informáticos.
+      </p>
+    </div>
+
+    <!-- Bloque de definición 1 -->
+    <div class="concept-block">
+      <div class="concept-num">CONCEPTO 01</div>
+      <div class="concept-term">Sistema Informático</div>
+      <p class="concept-def">
+        Conjunto integrado de <span class="highlight">hardware</span>, 
+        <span class="highlight">software</span> y 
+        <span class="highlight">recurso humano</span> que trabaja en coordinación 
+        para capturar, almacenar, procesar y distribuir información. Comprende desde 
+        estaciones de trabajo individuales hasta infraestructuras de centros de datos 
+        con miles de nodos interconectados.
+      </p>
+    </div>
+
+    <!-- Bloque de definición 2 -->
+    <div class="concept-block">
+      <div class="concept-num">CONCEPTO 02</div>
+      <div class="concept-term">Mantenimiento Informático</div>
+      <p class="concept-def">
+        Conjunto de actividades técnicas y administrativas orientadas a 
+        <span class="highlight">conservar, restaurar o mejorar</span> el estado 
+        funcional de los componentes de un sistema informático. Su objetivo principal 
+        es garantizar la disponibilidad, rendimiento y seguridad de los recursos 
+        tecnológicos, minimizando el tiempo de inactividad no planificado 
+        (<em>downtime</em>).
+      </p>
+    </div>
+
+    <!-- Bloque de definición 3 -->
+    <div class="concept-block">
+      <div class="concept-num">CONCEPTO 03</div>
+      <div class="concept-term">Disponibilidad del Sistema (Uptime)</div>
+      <p class="concept-def">
+        Porcentaje de tiempo durante el cual un sistema informático opera 
+        correctamente dentro de un período determinado. Se expresa con el 
+        estándar de <span class="highlight">"los nueve"</span>: 
+        99.9% = 8.76 h/año de inactividad; 
+        99.99% = 52.6 min/año; 
+        99.999% (cinco nueves) = 5.26 min/año. 
+        El mantenimiento planificado es esencial para alcanzar estos niveles.
+      </p>
+    </div>
+
+    <!-- Bloque de definición 4 -->
+    <div class="concept-block">
+      <div class="concept-num">CONCEPTO 04</div>
+      <div class="concept-term">Aseguramiento de la Operación</div>
+      <p class="concept-def">
+        Proceso sistemático que garantiza que todos los componentes del 
+        sistema informático funcionan dentro de los 
+        <span class="highlight">parámetros establecidos</span> (SLAs). 
+        Incluye monitoreo continuo, gestión de incidentes, control de cambios 
+        y planificación de la capacidad. Se documenta mediante planes de 
+        continuidad del negocio (BCP) y recuperación ante desastres (DRP).
+      </p>
+    </div>
+
+    <!-- Bloque de definición 5 -->
+    <div class="concept-block">
+      <div class="concept-num">CONCEPTO 05</div>
+      <div class="concept-term">MTTR y MTBF</div>
+      <p class="concept-def">
+        Dos métricas críticas del mantenimiento: 
+        <span class="highlight">MTTR</span> (Mean Time To Repair — Tiempo Medio 
+        de Reparación) mide la velocidad de restauración del servicio tras una falla. 
+        <span class="highlight">MTBF</span> (Mean Time Between Failures — Tiempo 
+        Medio Entre Fallas) mide la fiabilidad del sistema indicando con qué 
+        frecuencia ocurren fallos. Un buen programa de mantenimiento incrementa 
+        el MTBF y reduce el MTTR.
+      </p>
+    </div>
+
+    <!-- Grilla de tarjetas complementarias de conceptos -->
+    <div class="cards-grid" style="margin-top: 2rem;">
+      <div class="card">
+        <span class="card-icon">🔧</span>
+        <span class="card-tag">Hardware</span>
+        <div class="card-title">Componentes Físicos</div>
+        <p class="card-text">
+          CPU, RAM, almacenamiento, placas base, fuentes de poder, 
+          periféricos y cableado estructurado. Requieren limpieza, 
+          inspección física y reemplazo por ciclo de vida.
+        </p>
+      </div>
+      <div class="card amber-accent">
+        <span class="card-icon">💾</span>
+        <span class="card-tag">Software</span>
+        <div class="card-title">Componentes Lógicos</div>
+        <p class="card-text">
+          Sistema operativo, controladores (drivers), aplicaciones, 
+          bases de datos y firmware. Requieren actualizaciones, 
+          parchado de seguridad y optimización periódica.
+        </p>
+      </div>
+      <div class="card red-accent">
+        <span class="card-icon">🔒</span>
+        <span class="card-tag">Seguridad</span>
+        <div class="card-title">Aseguramiento</div>
+        <p class="card-text">
+          Protección de la integridad, confidencialidad y disponibilidad 
+          de la información. Incluye antivirus, firewall, cifrado, 
+          control de acceso y auditorías de seguridad.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════════════════════════
+     SECCIÓN 3: TIPOS DE MANTENIMIENTO
+     Tabla comparativa y tarjetas con los 4 tipos principales.
+     id="tipos" es el ancla para el menú de navegación.
+════════════════════════════════════════════════════════ -->
+<section id="tipos" aria-labelledby="tipos-heading">
+  <div class="section">
+
+    <!-- Encabezado -->
+    <div class="section-header">
+      <span class="section-tag">// 02 — Clasificación</span>
+      <h2 class="section-title" id="tipos-heading">
+        Tipos de<br/>Mantenimiento
+      </h2>
+      <p class="section-sub">
+        El mantenimiento informático se clasifica según el momento de 
+        intervención y el objetivo que persigue.
+      </p>
+    </div>
+
+    <!-- Tarjetas de los 4 tipos principales -->
+    <div class="cards-grid">
+
+      <!-- Tipo 1: Preventivo -->
+      <div class="card">
+        <span class="card-icon">🛡️</span>
+        <span class="card-tag">Tipo 01</span>
+        <div class="card-title">Preventivo</div>
+        <p class="card-text">
+          Se ejecuta de forma <strong>planificada y periódica</strong>, 
+          independientemente del estado del sistema. Su objetivo es 
+          reducir la probabilidad de fallos futuros mediante inspecciones, 
+          limpiezas, actualizaciones y reemplazos programados. 
+          Es el tipo más rentable a largo plazo.
+          <br/><br/>
+          <strong>Ejemplos:</strong> limpieza de componentes, actualización 
+          de sistema operativo, desfragmentación de discos, revisión de logs.
+        </p>
+      </div>
+
+      <!-- Tipo 2: Correctivo -->
+      <div class="card amber-accent">
+        <span class="card-icon">🔨</span>
+        <span class="card-tag">Tipo 02</span>
+        <div class="card-title">Correctivo</div>
+        <p class="card-text">
+          Se realiza <strong>después de que ocurre una falla</strong> con 
+          el propósito de restaurar el sistema a su estado funcional. 
+          Puede ser inmediato (emergencia) o diferido (no crítico). 
+          Su costo suele ser mayor que el preventivo dado el impacto 
+          del tiempo de inactividad.
+          <br/><br/>
+          <strong>Ejemplos:</strong> reemplazo de disco dañado, 
+          reinstalación de SO, reparación de fuente de poder, 
+          recuperación de datos.
+        </p>
+      </div>
+
+      <!-- Tipo 3: Predictivo -->
+      <div class="card">
+        <span class="card-icon">📊</span>
+        <span class="card-tag">Tipo 03</span>
+        <div class="card-title">Predictivo</div>
+        <p class="card-text">
+          Basado en el <strong>monitoreo continuo</strong> del estado 
+          real del sistema para anticipar fallos antes de que ocurran. 
+          Utiliza herramientas de diagnóstico, análisis de tendencias 
+          y métricas de rendimiento (temperatura, SMART de discos, 
+          uso de CPU/RAM).
+          <br/><br/>
+          <strong>Ejemplos:</strong> análisis SMART de HDDs, 
+          monitoreo de temperatura de CPU, alertas de capacidad de disco.
+        </p>
+      </div>
+
+      <!-- Tipo 4: Adaptativo -->
+      <div class="card red-accent">
+        <span class="card-icon">⚙️</span>
+        <span class="card-tag">Tipo 04</span>
+        <div class="card-title">Adaptativo</div>
+        <p class="card-text">
+          Modificaciones realizadas para <strong>adaptar el sistema</strong> 
+          a nuevos entornos, requisitos o estándares, sin que haya 
+          un fallo previo. Incluye migraciones, actualizaciones de 
+          plataforma y cambios en la configuración del entorno.
+          <br/><br/>
+          <strong>Ejemplos:</strong> migración a nuevo sistema operativo, 
+          actualización de drivers por cambio de hardware, 
+          reconfiguración de red.
+        </p>
+      </div>
+    </div>
+
+    <!-- Tabla comparativa de los 4 tipos -->
+    <div class="table-wrapper" role="region" aria-label="Comparativa de tipos de mantenimiento">
+      <table>
+        <caption style="display:none">Comparativa de tipos de mantenimiento informático</caption>
+        <thead>
+          <tr>
+            <th scope="col">Tipo</th>
+            <th scope="col">Cuándo se aplica</th>
+            <th scope="col">Objetivo</th>
+            <th scope="col">Costo relativo</th>
+            <th scope="col">Criticidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🛡️ Preventivo</td>
+            <td>Antes de la falla (programado)</td>
+            <td>Evitar averías futuras</td>
+            <td><span class="badge badge-green">Bajo</span></td>
+            <td><span class="badge badge-green">Planificado</span></td>
+          </tr>
+          <tr>
+            <td>🔨 Correctivo</td>
+            <td>Después de la falla</td>
+            <td>Restaurar funcionamiento</td>
+            <td><span class="badge badge-red">Alto</span></td>
+            <td><span class="badge badge-red">Urgente</span></td>
+          </tr>
+          <tr>
+            <td>📊 Predictivo</td>
+            <td>Basado en datos en tiempo real</td>
+            <td>Anticipar fallos</td>
+            <td><span class="badge badge-amber">Medio</span></td>
+            <td><span class="badge badge-blue">Proactivo</span></td>
+          </tr>
+          <tr>
+            <td>⚙️ Adaptativo</td>
+            <td>Ante cambios del entorno</td>
+            <td>Adaptar el sistema</td>
+            <td><span class="badge badge-amber">Medio</span></td>
+            <td><span class="badge badge-blue">Evolutivo</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════════════════════════
+     SECCIÓN 4: HERRAMIENTAS
+     Catálogo de software y herramientas de mantenimiento.
+     id="herramientas" es el ancla para el menú.
+════════════════════════════════════════════════════════ -->
+<section id="herramientas" aria-labelledby="herramientas-heading">
+  <div class="section">
+
+    <!-- Encabezado -->
+    <div class="section-header">
+      <span class="section-tag">// 03 — Arsenal Técnico</span>
+      <h2 class="section-title" id="herramientas-heading">
+        Herramientas<br/>Esenciales
+      </h2>
+      <p class="section-sub">
+        Software y utilidades fundamentales para el diagnóstico, 
+        monitoreo y mantenimiento de sistemas informáticos.
+      </p>
+    </div>
+
+    <!-- Cuadrícula de herramientas agrupadas por categoría -->
+    <div class="tools-grid">
+
+      <!-- Herramienta: CrystalDiskInfo -->
+      <div class="tool-item">
+        <span class="tool-icon">💽</span>
+        <div>
+          <div class="tool-cat">Diagnóstico de Almacenamiento</div>
+          <div class="tool-name">CrystalDiskInfo</div>
+          <p class="tool-desc">
+            Monitorea el estado S.M.A.R.T. de discos duros y SSDs. 
+            Muestra temperatura, sectores realocados, errores de lectura 
+            y vida útil estimada de unidades NVMe.
+          </p>
+        </div>
+      </div>
+
+      <!-- Herramienta: CPU-Z -->
+      <div class="tool-item">
+        <span class="tool-icon">🔬</span>
+        <div>
+          <div class="tool-cat">Información de Hardware</div>
+          <div class="tool-name">CPU-Z / HWiNFO64</div>
+          <p class="tool-desc">
+            Identifica con detalle todos los componentes de hardware: 
+            velocidades de reloj, voltajes, temperaturas, SPD de RAM 
+            y versiones de BIOS/UEFI.
+          </p>
+        </div>
+      </div>
+
+      <!-- Herramienta: Malwarebytes -->
+      <div class="tool-item">
+        <span class="tool-icon">🛡️</span>
+        <div>
+          <div class="tool-cat">Seguridad y Malware</div>
+          <div class="tool-name">Malwarebytes / Kaspersky</div>
+          <p class="tool-desc">
+            Detección y eliminación de malware, ransomware, spyware 
+            y rootkits. Complementa al antivirus principal con 
+            análisis bajo demanda.
+          </p>
+        </div>
+      </div>
+
+      <!-- Herramienta: Windows Update / WSUS -->
+      <div class="tool-item">
+        <span class="tool-icon">🔄</span>
+        <div>
+          <div class="tool-cat">Gestión de Actualizaciones</div>
+          <div class="tool-name">Windows Update / WSUS</div>
+          <p class="tool-desc">
+            Administración centralizada de parches del SO y aplicaciones 
+            Microsoft. WSUS permite controlar, aprobar y desplegar 
+            actualizaciones en toda la red corporativa.
+          </p>
+        </div>
+      </div>
+
+      <!-- Herramienta: Wireshark -->
+      <div class="tool-item">
+        <span class="tool-icon">🌐</span>
+        <div>
+          <div class="tool-cat">Análisis de Red</div>
+          <div class="tool-name">Wireshark</div>
+          <p class="tool-desc">
+            Analizador de paquetes de red de código abierto. Captura 
+            y examina el tráfico en tiempo real para diagnosticar 
+            problemas de conectividad, latencia o intrusiones.
+          </p>
+        </div>
+      </div>
+
+      <!-- Herramienta: Veeam Backup -->
+      <div class="tool-item">
+        <span class="tool-icon">💾</span>
+        <div>
+          <div class="tool-cat">Respaldo y Recuperación</div>
+          <div class="tool-name">Veeam Backup & Replication</div>
+          <p class="tool-desc">
+            Solución empresarial para backup de máquinas virtuales, 
+            físicas y en la nube. Permite recuperación instantánea 
+            con objetivos RPO y RTO mínimos.
+          </p>
+        </div>
+      </div>
+
+      <!-- Herramienta: Nagios / Zabbix -->
+      <div class="tool-item">
+        <span class="tool-icon">📈</span>
+        <div>
+          <div class="tool-cat">Monitoreo de Infraestructura</div>
+          <div class="tool-name">Nagios / Zabbix</div>
+          <p class="tool-desc">
+            Plataformas de monitoreo de servidores, redes y servicios. 
+            Envían alertas ante caídas, umbrales de rendimiento y 
+            problemas de disponibilidad en tiempo real.
+          </p>
+        </div>
+      </div>
+
+      <!-- Herramienta: TeamViewer / AnyDesk -->
+      <div class="tool-item">
+        <span class="tool-icon">🖥️</span>
+        <div>
+          <div class="tool-cat">Soporte Remoto</div>
+          <div class="tool-name">TeamViewer / AnyDesk</div>
+          <p class="tool-desc">
+            Permiten acceso y control remoto seguro de equipos para 
+            asistencia técnica sin presencia física. Esenciales en 
+            entornos de soporte distribuido.
+          </p>
+        </div>
+      </div>
+
+      <!-- Herramienta: CCleaner / BleachBit -->
+      <div class="tool-item">
+        <span class="tool-icon">🧹</span>
+        <div>
+          <div class="tool-cat">Optimización del Sistema</div>
+          <div class="tool-name">CCleaner / BleachBit</div>
+          <p class="tool-desc">
+            Limpieza de archivos temporales, caché, registros obsoletos 
+            del SO y aplicaciones. Liberan espacio y mejoran la 
+            velocidad de arranque y operación.
+          </p>
+        </div>
+      </div>
+
+      <!-- Herramienta: MemTest86 -->
+      <div class="tool-item">
+        <span class="tool-icon">🧠</span>
+        <div>
+          <div class="tool-cat">Prueba de Memoria RAM</div>
+          <div class="tool-name">MemTest86</div>
+          <p class="tool-desc">
+            Herramienta booteable para diagnóstico exhaustivo de 
+            módulos RAM. Detecta celdas defectuosas que causan 
+            pantallas azules (BSOD) e inestabilidad del sistema.
+          </p>
+        </div>
+      </div>
+
+      <!-- Herramienta: GLPI -->
+      <div class="tool-item">
+        <span class="tool-icon">📋</span>
+        <div>
+          <div class="tool-cat">Gestión de Activos / ITSM</div>
+          <div class="tool-name">GLPI / ServiceDesk Plus</div>
+          <p class="tool-desc">
+            Sistemas de inventario de TI y gestión de solicitudes. 
+            Controlan el ciclo de vida de activos, tickets de soporte 
+            y cumplimiento con ITIL.
+          </p>
+        </div>
+      </div>
+
+      <!-- Herramienta: Acronis True Image -->
+      <div class="tool-item">
+        <span class="tool-icon">🗂️</span>
+        <div>
+          <div class="tool-cat">Clonación de Disco</div>
+          <div class="tool-name">Acronis / Clonezilla</div>
+          <p class="tool-desc">
+            Clonan o crean imágenes completas del disco para migración 
+            de hardware o restauración rápida ante fallo catastrófico. 
+            Clonezilla es la opción libre y gratuita.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════════════════════════
+     SECCIÓN 5: PROCEDIMIENTOS
+     Pasos detallados para realizar mantenimiento preventivo.
+     id="procedimientos" es el ancla para el menú.
+════════════════════════════════════════════════════════ -->
+<section id="procedimientos" aria-labelledby="procedimientos-heading">
+  <div class="section">
+
+    <!-- Encabezado -->
+    <div class="section-header">
+      <span class="section-tag">// 04 — Protocolo</span>
+      <h2 class="section-title" id="procedimientos-heading">
+        Procedimientos<br/>de Mantenimiento
+      </h2>
+      <p class="section-sub">
+        Protocolo estándar de seis fases para ejecutar el mantenimiento 
+        preventivo de un sistema informático de manera segura y eficaz.
+      </p>
+    </div>
+
+    <!-- Lista de pasos numerados.
+         Cada step-item tiene data-step con el número del paso,
+         que se usa en el CSS para mostrar el círculo numerado. -->
+    <div class="steps-list">
+
+      <!-- Paso 1 -->
+      <div class="step-item" data-step="01">
+        <div class="step-title">Planificación y Documentación Inicial</div>
+        <p class="step-desc">
+          Antes de intervenir cualquier equipo se debe revisar el historial 
+          de mantenimiento, el inventario de activos y los contratos de 
+          garantía vigentes. Se elabora un plan de trabajo indicando: 
+          equipos a intervenir, herramientas necesarias, tiempo estimado, 
+          ventana de mantenimiento y responsable técnico. 
+          Se notifica a los usuarios afectados con al menos 24 horas de anticipación.
+        </p>
+      </div>
+
+      <!-- Paso 2 -->
+      <div class="step-item" data-step="02">
+        <div class="step-title">Respaldo (Backup) de Información</div>
+        <p class="step-desc">
+          Verificar que existan copias de seguridad recientes y válidas de 
+          todos los datos críticos antes de iniciar cualquier operación. 
+          Para sistemas críticos, realizar un snapshot o backup de emergencia 
+          del estado actual. Confirmar la integridad del backup mediante una 
+          restauración de prueba en entorno aislado. 
+          Nunca trabajar sobre un sistema sin backup verificado.
+        </p>
+      </div>
+
+      <!-- Paso 3 -->
+      <div class="step-item" data-step="03">
+        <div class="step-title">Diagnóstico y Evaluación del Estado</div>
+        <p class="step-desc">
+          Ejecutar herramientas de diagnóstico para obtener una línea base 
+          del estado actual del sistema: análisis SMART de discos, test de RAM, 
+          revisión de temperaturas de CPU/GPU, análisis de logs de eventos 
+          (Event Viewer / journalctl), verificación de integridad del sistema 
+          de archivos (chkdsk / fsck) y auditoría de seguridad básica. 
+          Documentar todos los hallazgos antes de proceder.
+        </p>
+      </div>
+
+      <!-- Paso 4 -->
+      <div class="step-item" data-step="04">
+        <div class="step-title">Mantenimiento Físico (Hardware)</div>
+        <p class="step-desc">
+          Con el equipo apagado y desconectado de la corriente, aplicar medidas 
+          antiestáticas (pulsera ESD). Limpiar el interior del gabinete con aire 
+          comprimido, remover polvo de ventiladores, rejillas y disipadores. 
+          Inspeccionar cables de poder y datos, condensadores y capacitores visibles. 
+          Re-aplicar pasta térmica en CPU si la temperatura indica degradación. 
+          Verificar el correcto asiento de módulos RAM y tarjetas de expansión.
+        </p>
+      </div>
+
+      <!-- Paso 5 -->
+      <div class="step-item" data-step="05">
+        <div class="step-title">Mantenimiento Lógico (Software)</div>
+        <p class="step-desc">
+          Con el sistema operativo en funcionamiento, ejecutar la secuencia: 
+          (1) desinstalar programas obsoletos o no autorizados, 
+          (2) limpiar archivos temporales y caché del sistema, 
+          (3) aplicar todas las actualizaciones del SO y aplicaciones críticas, 
+          (4) actualizar definiciones de antivirus y ejecutar análisis completo, 
+          (5) desfragmentar HDD si corresponde (no aplica para SSD), 
+          (6) revisar y limpiar el registro del sistema, 
+          (7) verificar el inicio de sesión y las cuentas de usuario activas.
+        </p>
+      </div>
+
+      <!-- Paso 6 -->
+      <div class="step-item" data-step="06">
+        <div class="step-title">Verificación, Pruebas y Cierre</div>
+        <p class="step-desc">
+          Tras todas las intervenciones, reiniciar el sistema y verificar 
+          el arranque completo sin errores. Ejecutar pruebas funcionales 
+          de todos los servicios y aplicaciones críticas. Medir parámetros 
+          de rendimiento (velocidad de arranque, lectura/escritura de disco, 
+          latencia de red) y comparar con la línea base. 
+          Documentar todas las actividades realizadas, hallazgos y acciones 
+          tomadas. Actualizar el historial de mantenimiento del activo en 
+          el sistema de gestión (GLPI/CMDB). Notificar a los usuarios 
+          la finalización y resultados.
+        </p>
+      </div>
+    </div>
+
+    <!-- Nota de advertencia adicional -->
+    <div class="concept-block" style="margin-top: 2rem; border-left-color: var(--amber);">
+      <div class="concept-num">⚠️ CONSIDERACIONES DE SEGURIDAD</div>
+      <div class="concept-term">Aspectos Críticos del Protocolo</div>
+      <p class="concept-def">
+        Todo mantenimiento debe ejecutarse dentro de una 
+        <span class="highlight">ventana de mantenimiento aprobada</span> para 
+        minimizar el impacto a los usuarios. Los cambios deben gestionarse 
+        bajo un proceso formal de <span class="highlight">gestión de cambios (CAB)</span>. 
+        En entornos productivos, siempre se debe contar con un 
+        <span class="highlight">plan de rollback</span> documentado. 
+        El personal técnico debe tener habilitaciones y accesos 
+        <span class="highlight">mínimamente necesarios</span> (principio de menor privilegio).
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════════════════════════
+     SECCIÓN 6: CONTACTO
+     Formulario de contacto e información de referencia.
+     id="contacto" es el ancla para el menú de navegación.
+════════════════════════════════════════════════════════ -->
+<section id="contacto" aria-labelledby="contacto-heading">
+  <div class="section">
+
+    <!-- Encabezado -->
+    <div class="section-header">
+      <span class="section-tag">// 05 — Comunicación</span>
+      <h2 class="section-title" id="contacto-heading">
+        Contacto &<br/>Soporte
+      </h2>
+      <p class="section-sub">
+        ¿Tienes preguntas sobre el módulo o necesitas soporte técnico? 
+        Contáctanos a través del formulario o los canales indicados.
+      </p>
+    </div>
+
+    <!-- Cuadrícula de dos columnas: info + formulario -->
+    <div class="contact-grid">
+
+      <!-- Columna izquierda: datos de contacto -->
+      <div class="contact-info">
+        <div class="contact-item">
+          <span class="contact-item-icon">🏫</span>
+          <div>
+            <div class="contact-item-label">Institución</div>
+            <div class="contact-item-value">Módulo de Sistemas Informáticos</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-icon">📧</span>
+          <div>
+            <div class="contact-item-label">Correo Electrónico</div>
+            <div class="contact-item-value">soporte@sistemas.edu</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-icon">🕐</span>
+          <div>
+            <div class="contact-item-label">Horario de Atención</div>
+            <div class="contact-item-value">Lunes a Viernes: 8:00 AM – 5:00 PM</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-icon">📞</span>
+          <div>
+            <div class="contact-item-label">Soporte Técnico</div>
+            <div class="contact-item-value">Ext. 2200 / Mesa de Ayuda</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-icon">🔗</span>
+          <div>
+            <div class="contact-item-label">Repositorio del Proyecto</div>
+            <div class="contact-item-value">
+              <!-- Link al repositorio en GitHub -->
+              <a href="https://github.com/usuario/mantenimiento-sistema" 
+                 target="_blank" 
+                 rel="noopener noreferrer"
+                 style="color: var(--green-bright); text-decoration: none;">
+                github.com/usuario/mantenimiento-sistema
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna derecha: formulario de contacto
+           El formulario usa un action="#" por ser página estática.
+           Los campos tienen label + input para accesibilidad. -->
+      <div class="contact-form" role="form" aria-label="Formulario de contacto">
+        <div class="form-title">📨 Enviar Consulta</div>
+
+        <!-- Campo: Nombre -->
+        <div class="form-group">
+          <label for="nombre">Nombre completo *</label>
+          <input 
+            type="text" 
+            id="nombre" 
+            name="nombre" 
+            placeholder="Tu nombre" 
+            required 
+            autocomplete="name"
+          />
+        </div>
+
+        <!-- Campo: Correo electrónico -->
+        <div class="form-group">
+          <label for="email">Correo electrónico *</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            placeholder="correo@ejemplo.com" 
+            required 
+            autocomplete="email"
+          />
+        </div>
+
+        <!-- Campo: Tema de la consulta (select dropdown) -->
+        <div class="form-group">
+          <label for="tema">Tema de la consulta</label>
+          <select id="tema" name="tema">
+            <option value="">— Seleccionar tema —</option>
+            <option value="preventivo">Mantenimiento Preventivo</option>
+            <option value="correctivo">Mantenimiento Correctivo</option>
+            <option value="herramientas">Herramientas de Diagnóstico</option>
+            <option value="procedimiento">Procedimientos y Protocolos</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+
+        <!-- Campo: Mensaje -->
+        <div class="form-group">
+          <label for="mensaje">Mensaje *</label>
+          <textarea 
+            id="mensaje" 
+            name="mensaje" 
+            placeholder="Describe tu consulta o comentario aquí..."
+            required
+          ></textarea>
+        </div>
+
+        <!-- Botón de envío del formulario -->
+        <button type="button" 
+                class="btn-primary" 
+                style="width:100%; justify-content:center;"
+                onclick="enviarFormulario()">
+          ✉️ Enviar Mensaje
+        </button>
+
+        <!-- Mensaje de confirmación (oculto por defecto, JS lo muestra) -->
+        <div id="form-success" 
+             style="display:none; margin-top:1rem; padding:1rem; background:rgba(0,255,136,0.1); 
+                    border:1px solid var(--green-dim); border-radius:4px; font-size:0.8rem; 
+                    color:var(--green-bright); text-align:center;">
+          ✅ ¡Mensaje enviado correctamente! Te responderemos pronto.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     PIE DE PÁGINA (FOOTER)
+     Información legal, créditos y tiempo del sistema.
+════════════════════════════════════════════════════════ -->
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <!-- Créditos del proyecto -->
+    <span class="footer-copy">
+      © 2025 — Mantenimiento del Sistema Informático · Proyecto Académico
+    </span>
+    <!-- Hora actual del sistema, actualizada por JavaScript -->
+    <span class="footer-time" id="footer-clock">
+      <!-- El JS inserta aquí la hora en tiempo real -->
+    </span>
+  </div>
+</footer>
+
+<!-- ── BOTÓN "VOLVER ARRIBA" ──────────────────────────────────
+     Botón flotante que aparece cuando el usuario hace scroll.
+     aria-label para accesibilidad.
+─────────────────────────────────────────────────────────── -->
+<button id="back-to-top" 
+        aria-label="Volver al inicio"
+        title="Volver al inicio"
+        onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+  ↑
+</button>
+
+<!-- ════════════════════════════════════════════════════════
+     JAVASCRIPT INLINE
+     Código JS que controla la interactividad de la página:
+     - Barra de progreso de lectura
+     - Navbar activo al hacer scroll
+     - Animaciones de entrada (Intersection Observer)
+     - Menú hamburguesa para móviles
+     - Reloj en el footer
+     - Función de envío del formulario
+════════════════════════════════════════════════════════ -->
+<script>
+// ── REFERENCIAS A ELEMENTOS DEL DOM ─────────────────────────
+// Guardamos referencias a los elementos que necesitamos manipular
+const progressBar  = document.getElementById('progress-bar');
+const navbar       = document.getElementById('navbar');
+const backToTop    = document.getElementById('back-to-top');
+const navLinks     = document.querySelectorAll('.nav-link');
+const sections     = document.querySelectorAll('section[id]');
+const navToggle    = document.getElementById('nav-toggle');
+const navLinksMenu = document.getElementById('nav-links');
+const footerClock  = document.getElementById('footer-clock');
+
+// ── EVENTOS AL HACER SCROLL ──────────────────────────────────
+// window.addEventListener('scroll') se ejecuta cada vez que el usuario
+// mueve la barra de desplazamiento de la página.
+window.addEventListener('scroll', () => {
+  const scrollTop    = window.scrollY;              // px desde el tope
+  const docHeight    = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPct    = (scrollTop / docHeight) * 100;
+
+  // 1. Actualizar la barra de progreso de lectura
+  progressBar.style.width = scrollPct + '%';
+
+  // 2. Añadir clase "scrolled" al navbar si el scroll es > 50px
+  // Esto activa sombra y borde en el navbar (definido en CSS)
+  navbar.classList.toggle('scrolled', scrollTop > 50);
+
+  // 3. Mostrar/ocultar el botón "volver arriba"
+  backToTop.classList.toggle('visible', scrollTop > 400);
+
+  // 4. Actualizar el link activo del menú según la sección visible
+  // Recorremos todas las secciones y marcamos la que está en vista
+  let currentSection = '';
+  sections.forEach(section => {
+    // Si el tope de la sección ya pasó por la pantalla...
+    if (scrollTop >= section.offsetTop - 120) {
+      currentSection = section.getAttribute('id');
+    }
+  });
+
+  // Aplicar la clase "active" al link correspondiente en el menú
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + currentSection) {
+      link.classList.add('active');
+    }
+  });
+});
+
+// ── MENÚ HAMBURGUESA (MÓVILES) ────────────────────────────────
+// Alterna la visibilidad del menú en dispositivos móviles
+navToggle.addEventListener('click', () => {
+  const isOpen = navLinksMenu.classList.toggle('open');
+  // Actualizar atributo aria-expanded para accesibilidad
+  navToggle.setAttribute('aria-expanded', isOpen);
+});
+
+// Cerrar el menú al hacer click en un link (en móviles)
+navLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    navLinksMenu.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+
+// ── ANIMACIONES DE ENTRADA (INTERSECTION OBSERVER) ───────────
+// IntersectionObserver detecta cuándo un elemento entra en la
+// ventana visible del navegador (viewport) y aplica animaciones.
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      // El elemento es visible: agregar clase para activar animación CSS
+      entry.target.classList.add('animate-in');
+      // Dejar de observar el elemento (la animación solo ocurre una vez)
+      observer.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.1,    // Activar cuando el 10% del elemento es visible
+  rootMargin: '0px 0px -50px 0px'  // Con margen inferior para activar antes
+});
+
+// Seleccionar todos los elementos que queremos animar al entrar
+document.querySelectorAll('.card, .concept-block, .tool-item, .step-item, .stat-item')
+  .forEach(el => observer.observe(el));
+
+// ── RELOJ EN EL FOOTER ───────────────────────────────────────
+// Muestra la hora actual y la actualiza cada segundo
+function updateClock() {
+  const now  = new Date();
+  // toLocaleTimeString formatea la hora según el idioma del sistema
+  const time = now.toLocaleTimeString('es-SV', { 
+    hour: '2-digit', minute: '2-digit', second: '2-digit' 
+  });
+  const date = now.toLocaleDateString('es-SV', { 
+    year: 'numeric', month: 'short', day: '2-digit' 
+  });
+  footerClock.textContent = `SYS-TIME: ${date} ${time}`;
+}
+
+// Llamar de inmediato y luego cada 1000ms (1 segundo)
+updateClock();
+setInterval(updateClock, 1000);
+
+// ── FUNCIÓN DE ENVÍO DEL FORMULARIO ──────────────────────────
+// Simula el envío del formulario mostrando un mensaje de éxito
+function enviarFormulario() {
+  const nombre  = document.getElementById('nombre').value.trim();
+  const email   = document.getElementById('email').value.trim();
+  const mensaje = document.getElementById('mensaje').value.trim();
+
+  // Validación básica: verificar que los campos requeridos no estén vacíos
+  if (!nombre || !email || !mensaje) {
+    alert('Por favor completa todos los campos obligatorios (*).');
+    return;
+  }
+
+  // Validación básica del formato del email con expresión regular
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    alert('Por favor ingresa un correo electrónico válido.');
+    return;
+  }
+
+  // Mostrar el mensaje de éxito (el div con id="form-success")
+  document.getElementById('form-success').style.display = 'block';
+
+  // Limpiar los campos del formulario después del envío
+  document.getElementById('nombre').value  = '';
+  document.getElementById('email').value   = '';
+  document.getElementById('tema').value    = '';
+  document.getElementById('mensaje').value = '';
+
+  // Ocultar el mensaje de éxito después de 5 segundos (5000ms)
+  setTimeout(() => {
+    document.getElementById('form-success').style.display = 'none';
+  }, 5000);
+}
+</script>
+
 </body>
 </html>

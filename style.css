@@ -1,0 +1,1055 @@
+/* ============================================================
+   style.css — Estilos para: Mantenimiento y Aseguramiento
+   del Sistema Informático
+   
+   Estética: Industrial-técnica con grilla modular
+   Paleta: Verde terminal sobre fondo oscuro + acentos ámbar
+   Tipografía: JetBrains Mono (código) + Barlow Condensed (títulos)
+   ============================================================ */
+
+/* ── 1. IMPORTAR FUENTES DESDE GOOGLE FONTS ─────────────────
+   Cargamos dos fuentes distintivas:
+   - JetBrains Mono: monoespaciada, ideal para texto técnico/código
+   - Barlow Condensed: condensada, impacto visual en títulos
+   ─────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap');
+
+/* ── 2. VARIABLES CSS (CUSTOM PROPERTIES) ───────────────────
+   Definimos colores, tipografías y espaciados como variables
+   para reutilizarlas en toda la página y facilitar cambios.
+   ─────────────────────────────────────────────────────────── */
+:root {
+  /* Colores primarios */
+  --bg-dark:      #0a0e0a;        /* Fondo principal casi negro */
+  --bg-panel:     #0f1a0f;        /* Fondo de paneles y secciones */
+  --bg-card:      #132213;        /* Fondo de tarjetas */
+  --bg-card-hover:#1a2e1a;        /* Fondo de tarjeta al pasar el mouse */
+
+  /* Acento verde terminal */
+  --green-bright: #00ff88;        /* Verde neón principal */
+  --green-mid:    #00cc66;        /* Verde medio para hover */
+  --green-dim:    #004d26;        /* Verde apagado para bordes sutiles */
+  --green-glow:   rgba(0,255,136,0.15); /* Brillo verde para sombras */
+
+  /* Acento ámbar (advertencias, etiquetas) */
+  --amber:        #ff0000;
+  --amber-dim:    rgba(255,183,0,0.15);
+
+  /* Acento rojo (alertas, errores) */
+  --red-alert:    #44ffff;
+
+  /* Textos */
+  --text-primary: #e8f5e9;        /* Texto principal muy claro */
+  --text-muted:   #6a9a6a;        /* Texto secundario apagado */
+  --text-code:    #a8ff78;        /* Texto de código / monospace */
+
+  /* Bordes */
+  --border:       #1e3a1e;        /* Borde estándar */
+  --border-bright:#00ff88;        /* Borde resaltado */
+
+  /* Tipografías */
+  --font-mono:    'JetBrains Mono', monospace;
+  --font-display: 'Barlow Condensed', sans-serif;
+
+  /* Espaciado base */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 6rem;
+
+  /* Transiciones */
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── 3. RESET Y BASE ─────────────────────────────────────────
+   Eliminamos márgenes/rellenos por defecto del navegador
+   y establecemos el box model universal con border-box.
+   ─────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  /* Desplazamiento suave al hacer click en los links de anclaje */
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  line-height: 1.7;
+  /* Patrón de cuadrícula de fondo (efecto papel milimetrado) */
+  background-image:
+    linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  overflow-x: hidden;
+}
+
+/* Cursor personalizado con color verde */
+::selection {
+  background: var(--green-bright);
+  color: var(--bg-dark);
+}
+
+/* ── 4. BARRA DE NAVEGACIÓN ──────────────────────────────────
+   Navegación fija en la parte superior de la pantalla.
+   Permanece visible al hacer scroll.
+   ─────────────────────────────────────────────────────────── */
+#navbar {
+  position: fixed;         /* Se queda en pantalla al hacer scroll */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;           /* Siempre encima del contenido */
+  background: rgba(10,14,10,0.95);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px); /* Efecto de vidrio esmerilado */
+  padding: 0 var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  transition: var(--transition);
+}
+
+/* Borde inferior brillante que aparece al hacer scroll */
+#navbar.scrolled {
+  border-bottom-color: var(--green-dim);
+  box-shadow: 0 4px 30px rgba(0,255,136,0.08);
+}
+
+/* Logo / título de la barra */
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: var(--green-bright);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  text-decoration: none;
+}
+
+/* Indicador parpadeante tipo terminal antes del logo */
+.nav-logo::before {
+  content: '>';
+  animation: blink 1.2s step-end infinite;
+  color: var(--amber);
+}
+
+/* Lista de links de navegación */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+/* Cada link del menú */
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: var(--transition);
+  position: relative;
+}
+
+/* Estado hover y activo del link */
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--green-bright);
+  border-color: var(--green-dim);
+  background: var(--green-glow);
+}
+
+/* Botón menú hamburguesa (solo en móviles) */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--green-bright);
+  transition: var(--transition);
+}
+
+/* ── 5. SECCIÓN HERO (INICIO) ────────────────────────────────
+   Pantalla de bienvenida a pantalla completa con animaciones.
+   ─────────────────────────────────────────────────────────── */
+#inicio {
+  min-height: 100vh;           /* Ocupa toda la altura de la pantalla */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-xl) var(--space-md);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Círculo decorativo de fondo en el hero */
+#inicio::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,255,136,0.06) 0%, transparent 70%);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+/* Contenedor del contenido hero */
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+}
+
+/* Etiqueta pequeña arriba del título */
+.hero-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  border: 1px solid var(--amber);
+  padding: 0.3rem 1rem;
+  border-radius: 2px;
+  margin-bottom: var(--space-md);
+  animation: fadeInDown 0.8s ease both;
+}
+
+/* Título principal del hero */
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.5rem, 8vw, 6rem); /* Tamaño responsivo */
+  line-height: 1.0;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-md);
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+/* Primera línea del título en verde brillante */
+.hero-title .line1 { color: var(--green-bright); }
+
+/* Segunda línea del título en blanco semi-transparente */
+.hero-title .line2 {
+  color: rgba(232,245,233,0.4);
+  font-weight: 300;
+}
+
+/* Párrafo descriptivo del hero */
+.hero-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  max-width: 500px;
+  margin: 0 auto var(--space-md);
+  animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+/* Grupo de botones de acción del hero */
+.hero-btns {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease 0.6s both;
+}
+
+/* ── 6. BOTONES ───────────────────────────────────────────────
+   Estilos para los diferentes tipos de botones.
+   ─────────────────────────────────────────────────────────── */
+
+/* Botón primario (fondo verde) */
+.btn-primary {
+  background: var(--green-bright);
+  color: var(--bg-dark);
+  border: 2px solid var(--green-bright);
+  padding: 0.75rem 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: var(--green-bright);
+  box-shadow: 0 0 20px var(--green-glow);
+}
+
+/* Botón secundario (solo borde) */
+.btn-outline {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 0.75rem 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-outline:hover {
+  border-color: var(--green-dim);
+  color: var(--green-bright);
+  background: var(--green-glow);
+}
+
+/* ── 7. SECCIONES GENERALES ──────────────────────────────────
+   Estilos base aplicados a todas las secciones informativas.
+   ─────────────────────────────────────────────────────────── */
+.section {
+  padding: var(--space-xl) var(--space-md);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Divisor entre secciones */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--green-dim), transparent);
+  margin: 0 auto;
+}
+
+/* Encabezado de cada sección */
+.section-header {
+  margin-bottom: var(--space-lg);
+}
+
+/* Número/etiqueta de sección */
+.section-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--green-bright);
+  margin-bottom: var(--space-xs);
+  opacity: 0.8;
+}
+
+/* Título de la sección */
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  text-transform: uppercase;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+}
+
+/* Subtítulo descriptivo */
+.section-sub {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: var(--space-xs);
+  max-width: 600px;
+}
+
+/* ── 8. TARJETAS (CARDS) ─────────────────────────────────────
+   Componente de tarjeta reutilizable para mostrar conceptos,
+   tipos de mantenimiento, herramientas, etc.
+   ─────────────────────────────────────────────────────────── */
+
+/* Cuadrícula de tarjetas */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-sm);
+}
+
+/* Tarjeta individual */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: var(--space-md);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Línea de acento superior en la tarjeta */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--green-bright);
+  transform: scaleX(0);      /* Empieza invisible */
+  transform-origin: left;
+  transition: var(--transition);
+}
+
+/* Al pasar el mouse: mostrar línea y cambiar fondo */
+.card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--green-dim);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,255,136,0.1);
+}
+
+.card:hover::before {
+  transform: scaleX(1);      /* Línea aparece de izquierda a derecha */
+}
+
+/* Icono dentro de la tarjeta */
+.card-icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-sm);
+  display: block;
+}
+
+/* Etiqueta de categoría de la tarjeta */
+.card-tag {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* Título de la tarjeta */
+.card-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+/* Cuerpo de texto de la tarjeta */
+.card-text {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+/* Variante de tarjeta con acento ámbar */
+.card.amber-accent::before {
+  background: var(--amber);
+}
+
+/* Variante de tarjeta con acento rojo */
+.card.red-accent::before {
+  background: var(--red-alert);
+}
+
+/* ── 9. SECCIÓN CONCEPTOS ────────────────────────────────────
+   Diseño de definición tipo "terminal" con estilo de código.
+   ─────────────────────────────────────────────────────────── */
+.concept-block {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--green-bright); /* Barra lateral de acento */
+  border-radius: 4px;
+  padding: var(--space-md);
+  margin-bottom: var(--space-sm);
+  transition: var(--transition);
+}
+
+.concept-block:hover {
+  border-left-color: var(--amber);
+  background: #111c11;
+}
+
+/* Número del concepto */
+.concept-num {
+  font-size: 0.65rem;
+  color: var(--green-bright);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  opacity: 0.7;
+}
+
+/* Término del concepto */
+.concept-term {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+/* Definición del concepto */
+.concept-def {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.9;
+}
+
+/* Palabra destacada dentro de una definición */
+.highlight {
+  color: var(--text-code);
+  background: rgba(168,255,120,0.08);
+  padding: 0 0.3em;
+  border-radius: 2px;
+}
+
+/* ── 10. TABLA DE TIPOS DE MANTENIMIENTO ─────────────────────
+   Tabla comparativa con estilos de cuadrícula de datos.
+   ─────────────────────────────────────────────────────────── */
+.table-wrapper {
+  overflow-x: auto;           /* Scroll horizontal en pantallas pequeñas */
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-top: var(--space-md);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+/* Encabezados de la tabla */
+thead th {
+  background: var(--bg-panel);
+  color: var(--green-bright);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.7rem;
+  padding: 1rem 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+/* Filas del cuerpo de la tabla */
+tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+/* Efecto hover en fila de tabla */
+tbody tr:hover {
+  background: rgba(0,255,136,0.04);
+}
+
+/* Última fila sin borde inferior */
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+/* Celdas de datos */
+tbody td {
+  padding: 1rem 1.5rem;
+  color: var(--text-muted);
+  vertical-align: top;
+}
+
+/* Primera columna (nombre del tipo) */
+tbody td:first-child {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Badge de estado/criticidad */
+.badge {
+  display: inline-block;
+  padding: 0.2em 0.7em;
+  border-radius: 2px;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.badge-green  { background: rgba(0,255,136,0.15); color: var(--green-bright); }
+.badge-amber  { background: var(--amber-dim);     color: var(--amber); }
+.badge-red    { background: rgba(255,68,68,0.15); color: var(--red-alert); }
+.badge-blue   { background: rgba(0,136,255,0.15); color: #44aaff; }
+
+/* ── 11. SECCIÓN HERRAMIENTAS ────────────────────────────────
+   Lista de herramientas con icono y barra de uso.
+   ─────────────────────────────────────────────────────────── */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-sm);
+}
+
+/* Elemento de herramienta */
+.tool-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.25rem var(--space-md);
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  transition: var(--transition);
+}
+
+.tool-item:hover {
+  border-color: var(--green-dim);
+  background: var(--bg-card-hover);
+}
+
+/* Icono de la herramienta */
+.tool-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+/* Nombre de la herramienta */
+.tool-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+/* Descripción de la herramienta */
+.tool-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* Categoría de la herramienta */
+.tool-cat {
+  font-size: 0.6rem;
+  color: var(--green-bright);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+/* ── 12. SECCIÓN PROCEDIMIENTOS ──────────────────────────────
+   Pasos numerados con línea vertical conectora.
+   ─────────────────────────────────────────────────────────── */
+.steps-list {
+  position: relative;
+  padding-left: 3rem;
+}
+
+/* Línea vertical que conecta los pasos */
+.steps-list::before {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, var(--green-bright), transparent);
+}
+
+/* Paso individual */
+.step-item {
+  position: relative;
+  margin-bottom: var(--space-md);
+  padding: var(--space-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  transition: var(--transition);
+}
+
+.step-item:hover {
+  border-color: var(--green-dim);
+  transform: translateX(4px);
+}
+
+/* Número del paso (círculo verde) */
+.step-item::before {
+  content: attr(data-step);  /* Toma el valor del atributo data-step */
+  position: absolute;
+  left: -3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.7rem;
+  height: 1.7rem;
+  background: var(--bg-dark);
+  border: 1px solid var(--green-bright);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  color: var(--green-bright);
+  font-weight: 700;
+}
+
+/* Título del paso */
+.step-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+/* Descripción del paso */
+.step-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+/* ── 13. SECCIÓN CONTACTO ────────────────────────────────────
+   Formulario de contacto y datos de referencia.
+   ─────────────────────────────────────────────────────────── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  align-items: start;
+}
+
+/* Panel de información de contacto */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* Elemento de dato de contacto */
+.contact-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.contact-item-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.contact-item-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--green-bright);
+  margin-bottom: 0.25rem;
+}
+
+.contact-item-value {
+  font-size: 0.8rem;
+  color: var(--text-primary);
+}
+
+/* Formulario de contacto */
+.contact-form {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: var(--space-md);
+}
+
+.form-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Grupo de campo del formulario */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+/* Etiqueta del campo */
+.form-group label {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+/* Input y textarea del formulario */
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  transition: var(--transition);
+  appearance: none;
+}
+
+/* Estado focus del campo (al hacer click) */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--green-bright);
+  background: var(--bg-card-hover);
+  box-shadow: 0 0 0 3px var(--green-glow);
+}
+
+/* Área de texto más alta */
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.7;
+}
+
+/* ── 14. PIE DE PÁGINA ───────────────────────────────────────
+   Footer con información del proyecto.
+   ─────────────────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  background: var(--bg-panel);
+  padding: var(--space-md);
+  text-align: center;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.footer-copy {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* Marca de tiempo en el footer */
+.footer-time {
+  font-size: 0.65rem;
+  color: var(--green-bright);
+  opacity: 0.6;
+  letter-spacing: 0.1em;
+}
+
+/* ── 15. BOTÓN DE SUBIR AL INICIO ───────────────────────────
+   Botón flotante para volver arriba al hacer scroll.
+   ─────────────────────────────────────────────────────────── */
+#back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+  width: 44px;
+  height: 44px;
+  background: var(--bg-dark);
+  border: 1px solid var(--green-dim);
+  border-radius: 4px;
+  color: var(--green-bright);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+}
+
+/* Aparece cuando el usuario hace scroll */
+#back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+#back-to-top:hover {
+  background: var(--green-glow);
+  border-color: var(--green-bright);
+  box-shadow: 0 0 20px var(--green-glow);
+}
+
+/* ── 16. STAT COUNTERS ───────────────────────────────────────
+   Estadísticas numéricas grandes con label descriptivo.
+   ─────────────────────────────────────────────────────────── */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-sm);
+  margin: var(--space-lg) 0;
+}
+
+.stat-item {
+  text-align: center;
+  padding: var(--space-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+/* Número grande de la estadística */
+.stat-num {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 2.5rem;
+  color: var(--green-bright);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+/* Texto descriptivo debajo del número */
+.stat-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+}
+
+/* ── 17. BARRA DE PROGRESO DE LECTURA ────────────────────────
+   Indicador de progreso del scroll de la página.
+   ─────────────────────────────────────────────────────────── */
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--green-bright);
+  z-index: 9999;
+  width: 0%;             /* Se actualiza con JavaScript */
+  transition: width 0.1s linear;
+  box-shadow: 0 0 8px var(--green-bright);
+}
+
+/* ── 18. ANIMACIONES (KEYFRAMES) ─────────────────────────────
+   Definición de animaciones CSS utilizadas en la página.
+   ─────────────────────────────────────────────────────────── */
+
+/* Elemento que aparece desde arriba */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Elemento que aparece desde abajo */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Efecto de pulsación suave (para el fondo del hero) */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.05); opacity: 0.7; }
+}
+
+/* Cursor parpadeante tipo terminal */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* Elemento que entra desde la izquierda */
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Clase para animar elementos al entrar en vista (activada por JS) */
+.animate-in {
+  animation: fadeInUp 0.6s ease both;
+}
+
+/* ── 19. DISEÑO RESPONSIVO ───────────────────────────────────
+   Ajustes para pantallas medianas (tablets) y pequeñas (móviles).
+   ─────────────────────────────────────────────────────────── */
+
+/* Tablet: max 768px */
+@media (max-width: 768px) {
+  /* Mostrar botón de hamburguesa */
+  .nav-toggle { display: flex; }
+
+  /* Ocultar links del menú por defecto */
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: rgba(10,14,10,0.98);
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    padding: var(--space-sm);
+    gap: 0.5rem;
+  }
+
+  /* Mostrar links cuando el menú está abierto */
+  .nav-links.open { display: flex; }
+
+  /* Una columna en móvil para la grilla de contacto */
+  .contact-grid { grid-template-columns: 1fr; }
+
+  /* Una columna para estadísticas */
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+
+  /* Quitar padding extra del hero */
+  #inicio { padding-top: 80px; }
+
+  /* Ajustar pasos sin margen lateral */
+  .steps-list { padding-left: 2rem; }
+}
+
+/* Móvil pequeño: max 480px */
+@media (max-width: 480px) {
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .section { padding: var(--space-lg) var(--space-sm); }
+  .hero-btns { flex-direction: column; align-items: center; }
+}
