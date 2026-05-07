@@ -1,361 +1,254 @@
+```html
 <!DOCTYPE html>
-
-<!-- 
-========================================================
-PÁGINA WEB INFORMATIVA
-Tema: Mantenimiento y Aseguramiento de la Operación 
-del Sistema Informático
-========================================================
--->
-
 <html lang="es">
-
 <head>
 
-  <!-- ==============================
-       CONFIGURACIÓN GENERAL
-  =============================== -->
-
-  <!-- Permite usar caracteres especiales -->
+  <!-- Configuración básica -->
   <meta charset="UTF-8">
-
-  <!-- Hace la página adaptable a celulares -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Descripción de la página -->
-  <meta name="description"
-    content="Recurso informativo sobre mantenimiento y aseguramiento de la operación del sistema informático.">
-
-  <!-- Título de la pestaña -->
+  <!-- Título -->
   <title>Mantenimiento del Sistema Informático</title>
 
-  <!-- Enlace al archivo CSS -->
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-  <!-- ======================================================
-       MENÚ DE NAVEGACIÓN
-  ======================================================= -->
+<!-- Barra superior -->
+<header class="navbar">
+
+  <!-- Logo -->
+  <div class="logo">
+    💻 Manual
+  </div>
+
+  <!-- Menú -->
   <nav>
-
-    <!-- Logo o nombre del sitio -->
-    <h1> Menu</h1>
-
-    <!-- Lista de enlaces -->
-    <ul>
-
-      <li>
-        <a href="#inicio">Inicio</a>
-      </li>
-
-      <li>
-        <a href="#conceptos">Conceptos</a>
-      </li>
-
-      <li>
-        <a href="#tipos">Tipos</a>
-      </li>
-
-      <li>
-        <a href="#herramientas">Herramientas</a>
-      </li>
-
-      <li>
-        <a href="#procedimientos">Procedimientos</a>
-      </li>
-
-      <li>
-        <a href="#contacto">Contacto</a>
-      </li>
-
+    <ul class="menu">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#conceptos">Conceptos</a></li>
+      <li><a href="#tipos">Tipos</a></li>
+      <li><a href="#herramientas">Herramientas</a></li>
+      <li><a href="#procedimientos">Procedimientos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
     </ul>
-
   </nav>
 
-  <!-- ======================================================
-       SECCIÓN DE INICIO
-  ======================================================= -->
-  <section id="inicio">
+</header>
 
-    <!-- Título principal -->
-    <h2>
-      Mantenimiento del Sistema Informático
-    </h2>
+<!-- =========================================
+     SECCIÓN PRINCIPAL
+========================================= -->
+<section class="hero" id="inicio">
 
-    <!-- Descripción -->
+  <div class="hero-content">
+
+    <h1>
+      Mantenimiento del<br>
+      Sistema Informático
+    </h1>
+
     <p>
-      Guía completa sobre el mantenimiento preventivo, correctivo y predictivo
-      de sistemas informáticos. Aprende herramientas, procedimientos y
-      mejores prácticas del sector.
+      Aprende sobre mantenimiento preventivo,
+      correctivo y herramientas utilizadas
+      en sistemas informáticos modernos.
     </p>
 
-
-    <!-- Botón -->
-    <a href="#conceptos">
-      Explorar Contenido
+    <a href="#conceptos" class="btn">
+      Explorar
     </a>
 
-  </section>
+  </div>
 
-  <!-- ======================================================
-       SECCIÓN DE CONCEPTOS
-  ======================================================= -->
-  <section id="conceptos">
+</section>
 
-    <!-- Título -->
-    <h2>
-      <p>Conceptos Fundamentales</p>
-    </h2>
+<!-- =========================================
+     ESTADÍSTICAS
+========================================= -->
+<section class="stats">
 
-    <!-- Concepto 1 -->
-    <div>
+  <div class="stat-box">
+    <h2>4</h2>
+    <p>Tipos de mantenimiento</p>
+  </div>
 
-      <h3>
-        <p>Sistema Informático</p>
-      </h3>
+  <div class="stat-box">
+    <h2>70%</h2>
+    <p>Fallas prevenibles</p>
+  </div>
 
+  <div class="stat-box">
+    <h2>12+</h2>
+    <p>Herramientas clave</p>
+  </div>
+
+</section>
+
+<!-- =========================================
+     CONCEPTOS
+========================================= -->
+<section class="section" id="conceptos">
+
+  <h2>Conceptos Fundamentales</h2>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>💻 Sistema Informático</h3>
       <p>
-        Conjunto integrado de hardware, software y recurso humano que trabaja
-        en coordinación para capturar, almacenar, procesar y distribuir información.
+        Conjunto de hardware y software
+        utilizado para procesar información.
       </p>
-  
-
     </div>
 
-    <!-- Concepto 2 -->
-    <div>
-
-      <h3>
-        Mantenimiento Informático
-      </h3>
-
+    <div class="card">
+      <h3>🛠️ Mantenimiento</h3>
       <p>
-        Conjunto de actividades técnicas y administrativas orientadas a conservar,
-        restaurar o mejorar el estado funcional de los componentes de un sistema informático.
+        Actividades para prevenir o corregir
+        fallas en equipos y programas.
       </p>
-
     </div>
 
-    <!-- Concepto 3 -->
-    <div>
-
-      <h3>
-        Disponibilidad del Sistema
-      </h3>
-
+    <div class="card">
+      <h3>🔒 Seguridad</h3>
       <p>
-        Porcentaje de tiempo durante el cual un sistema informático opera correctamente.
+        Protección de datos y sistemas
+        contra amenazas digitales.
       </p>
-
     </div>
 
-    <!-- Concepto 4 -->
-    <div>
+  </div>
 
-      <h3>
-        Aseguramiento de la Operación
-      </h3>
+</section>
 
+<!-- =========================================
+     TIPOS DE MANTENIMIENTO
+========================================= -->
+<section class="section dark-section" id="tipos">
+
+  <h2>Tipos de Mantenimiento</h2>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>🛡️ Preventivo</h3>
       <p>
-        Proceso que garantiza que todos los componentes del sistema informático
-        funcionan dentro de los parámetros establecidos.
+        Se realiza antes de que aparezcan fallas.
       </p>
-
     </div>
 
-  </section>
-
-  <!-- ======================================================
-       SECCIÓN TIPOS DE MANTENIMIENTO
-  ======================================================= -->
-  <section id="tipos">
-
-    <!-- Título -->
-    <h2>
-      Tipos de Mantenimiento
-    </h2>
-
-    <!-- Tipo 1 -->
-    <div>
-
-      <h3>
-        Preventivo
-      </h3>
-
+    <div class="card">
+      <h3>🔨 Correctivo</h3>
       <p>
-        Se ejecuta de forma planificada y periódica para evitar fallos futuros.
+        Soluciona errores ya existentes.
       </p>
-
     </div>
 
-    <!-- Tipo 2 -->
-    <div>
-
-      <h3>
-        Correctivo
-      </h3>
-
+    <div class="card">
+      <h3>📊 Predictivo</h3>
       <p>
-        Se realiza después de que ocurre una falla para restaurar el funcionamiento.
+        Usa monitoreo para detectar problemas.
       </p>
-
     </div>
 
-    <!-- Tipo 3 -->
-    <div>
+  </div>
 
-      <h3>
-        Predictivo
-      </h3>
+</section>
 
-      <p>
-        Basado en el monitoreo continuo para anticipar fallos antes de que ocurran.
-      </p>
+<!-- =========================================
+     HERRAMIENTAS
+========================================= -->
+<section class="section" id="herramientas">
 
+  <h2>Herramientas Utilizadas</h2>
+
+  <div class="tools">
+
+    <div class="tool">
+      💽 CrystalDiskInfo
     </div>
 
-    <!-- Tipo 4 -->
-    <div>
-
-      <h3>
-        Adaptativo
-      </h3>
-
-      <p>
-        Modificaciones realizadas para adaptar el sistema a nuevos entornos o requisitos.
-      </p>
-
+    <div class="tool">
+      🌐 Wireshark
     </div>
 
-  </section>
+    <div class="tool">
+      🛡️ Malwarebytes
+    </div>
 
-  <!-- ======================================================
-       SECCIÓN DE HERRAMIENTAS
-  ======================================================= -->
-  <section id="herramientas">
+    <div class="tool">
+      📈 Zabbix
+    </div>
 
-    <!-- Título -->
-    <h2>
-      Herramientas Esenciales
-    </h2>
+    <div class="tool">
+      🧹 CCleaner
+    </div>
 
-    <!-- Lista de herramientas -->
-    <ul>
+    <div class="tool">
+      🖥️ TeamViewer
+    </div>
 
-      <li>CrystalDiskInfo</li>
+  </div>
 
-      <li>CPU-Z / HWiNFO64</li>
+</section>
 
-      <li>Malwarebytes / Kaspersky</li>
+<!-- =========================================
+     PROCEDIMIENTOS
+========================================= -->
+<section class="section dark-section" id="procedimientos">
 
-      <li>Windows Update / WSUS</li>
+  <h2>Procedimiento Básico</h2>
 
-      <li>Wireshark</li>
+  <ol class="steps">
 
-      <li>Veeam Backup & Replication</li>
+    <li>Planificar el mantenimiento</li>
+    <li>Realizar respaldo de datos</li>
+    <li>Ejecutar diagnóstico</li>
+    <li>Limpiar hardware</li>
+    <li>Actualizar software</li>
+    <li>Verificar funcionamiento</li>
 
-      <li>Nagios / Zabbix</li>
+  </ol>
 
-      <li>TeamViewer / AnyDesk</li>
+</section>
 
-      <li>CCleaner / BleachBit</li>
+<!-- =========================================
+     CONTACTO
+========================================= -->
+<section class="section" id="contacto">
 
-      <li>MemTest86</li>
+  <h2>Contacto</h2>
 
-    </ul>
+  <form class="contact-form">
 
-  </section>
+    <input type="text" placeholder="Nombre">
 
-  <!-- ======================================================
-       SECCIÓN DE PROCEDIMIENTOS
-  ======================================================= -->
-  <section id="procedimientos">
+    <input type="email" placeholder="Correo">
 
-    <!-- Título -->
-    <h2>
-      Procedimientos de Mantenimiento
-    </h2>
+    <textarea placeholder="Mensaje"></textarea>
 
-    <!-- Lista ordenada -->
-    <ol>
+    <button type="button">
+      Enviar
+    </button>
 
-      <li>
-        Planificación y documentación inicial
-      </li>
+  </form>
 
-      <li>
-        Respaldo de información
-      </li>
+</section>
 
-      <li>
-        Diagnóstico y evaluación del estado
-      </li>
+<!-- =========================================
+     FOOTER
+========================================= -->
+<footer>
 
-      <li>
-        Mantenimiento físico
-      </li>
+  <p>
+    © 2026 - Proyecto Académico
+  </p>
 
-      <li>
-        Mantenimiento lógico
-      </li>
-
-      <li>
-        Verificación, pruebas y cierre
-      </li>
-
-    </ol>
-
-  </section>
-
-  <!-- ======================================================
-       SECCIÓN DE CONTACTO
-  ======================================================= -->
-  <section id="contacto">
-
-    <!-- Título -->
-    <h2>
-      Contacto
-    </h2>
-
-    <!-- Información de correo -->
-    <p>
-      Correo: soporte@sistemas.edu
-    </p>
-
-    <!-- Formulario -->
-    <form>
-
-      <!-- Campo nombre -->
-      <input type="text" placeholder="Nombre completo">
-
-      <!-- Campo correo -->
-      <input type="email" placeholder="Correo electrónico">
-
-      <!-- Campo mensaje -->
-      <textarea placeholder="Escribe tu mensaje"></textarea>
-
-      <!-- Botón -->
-      <button type="submit">
-        Enviar
-      </button>
-
-    </form>
-
-  </section>
-
-  <!-- ======================================================
-       PIE DE PÁGINA
-  ======================================================= -->
-  <footer>
-
-    <p>
-      © 2026 — Mantenimiento del Sistema Informático
-    </p>
-
-  </footer>
+</footer>
 
 </body>
-
 </html>
+```

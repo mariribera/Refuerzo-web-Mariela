@@ -1,1129 +1,563 @@
-/* ============================================================
-   style.css — Estilos para: Mantenimiento y Aseguramiento
-   del Sistema Informático
-   
-   Estética: Industrial-técnica con grilla modular
-   Paleta: Verde terminal sobre fondo oscuro + acentos ámbar
-   Tipografía: JetBrains Mono (código) + Barlow Condensed (títulos)
-   ============================================================ */
+```css id="l8r1xh"
+/* ======================================================
+   style.css
+   Diseño moderno con efectos visuales
+====================================================== */
 
-/* ── 1. IMPORTAR FUENTES DESDE GOOGLE FONTS ─────────────────
-   Cargamos dos fuentes distintivas:
-   - JetBrains Mono: monoespaciada, ideal para texto técnico/código
-   - Barlow Condensed: condensada, impacto visual en títulos
-   ─────────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap');
+/* ===== FUENTES ===== */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap');
 
-/* ── 2. VARIABLES CSS (CUSTOM PROPERTIES) ───────────────────
-   Definimos colores, tipografías y espaciados como variables
-   para reutilizarlas en toda la página y facilitar cambios.
-   ─────────────────────────────────────────────────────────── */
-:root {
-  /* Colores primarios */
-  --bg-dark:      #131613;        /* Fondo principal casi negro */
-  --bg-panel:     #7d8042;        /* Fondo de paneles y secciones */
-  --bg-card:      #132213;        /* Fondo de tarjetas */
-  --bg-card-hover:#1a2e1a;        /* Fondo de tarjeta al pasar el mouse */
+/* ===== VARIABLES ===== */
+:root{
 
-  /* Acento verde terminal */
-  --green-bright: #00ff88;        /* Verde neón principal */
-  --green-mid:    #00cc66;        /* Verde medio para hover */
-  --green-dim:    #004d26;        /* Verde apagado para bordes sutiles */
-  --green-glow:   rgba(0,255,136,0.15); /* Brillo verde para sombras */
+  --bg-main: #07110c;
+  --bg-second: #0d1b14;
+  --card: #13211a;
+  --card-hover: #1a2b22;
 
-  /* Acento ámbar (advertencias, etiquetas) */
-  --amber:        #ff0000;
-  --amber-dim:    rgba(255,183,0,0.15);
+  --green: #00ff88;
+  --green-dark: #00cc6f;
 
-  /* Acento rojo (alertas, errores) */
-  --red-alert:    #10e0e0;
+  --blue: #00bfff;
+  --purple: #8b5cf6;
 
-  /* Textos */
-  --text-primary: #e8f5e9;        /* Texto principal muy claro */
-  --text-muted:   #6a9a6a;        /* Texto secundario apagado */
-  --text-code:    #a8ff78;        /* Texto de código / monospace */
+  --text: #f5fff9;
+  --text-soft: #95a59b;
 
-  /* Bordes */
-  --border:       #1e3a1e;        /* Borde estándar */
-  --border-bright:#00ff88;        /* Borde resaltado */
+  --border: #22352b;
 
-  /* Tipografías */
-  --font-mono:    'JetBrains Mono', monospace;
-  --font-display: 'Barlow Condensed', sans-serif;
+  --shadow: rgba(0,255,136,0.15);
 
-  /* Espaciado base */
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 2rem;
-  --space-lg: 4rem;
-  --space-xl: 6rem;
-
-  /* Transiciones */
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-main: 'Poppins', sans-serif;
+  --font-code: 'JetBrains Mono', monospace;
 }
 
-/* ── 3. RESET Y BASE ─────────────────────────────────────────
-   Eliminamos márgenes/rellenos por defecto del navegador
-   y establecemos el box model universal con border-box.
-   ─────────────────────────────────────────────────────────── */
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* ===== RESET ===== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-html {
-  /* Desplazamiento suave al hacer click en los links de anclaje */
-  scroll-behavior: smooth;
-  font-size: 16px;
+html{
+  scroll-behavior:smooth;
 }
 
-body {
-  background-color: var(--bg-dark);
-  color: var(--text-primary);
-  font-family: var(--font-mono);
-  line-height: 1.7;
-  /* Patrón de cuadrícula de fondo (efecto papel milimetrado) */
+body{
+  font-family:var(--font-main);
+  background: var(--bg-main);
+  color: var(--text);
+  overflow-x:hidden;
+
+  /* Fondo decorativo */
   background-image:
-    linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  overflow-x: hidden;
-}
-
-/* Cursor personalizado con color verde */
-::selection {
-  background: var(--green-bright);
-  color: var(--bg-dark);
-}
-
-/* ── 4. BARRA DE NAVEGACIÓN ──────────────────────────────────
-   Navegación fija en la parte superior de la pantalla.
-   Permanece visible al hacer scroll.
-   ─────────────────────────────────────────────────────────── */
-#navbar {
-  position: fixed;         /* Se queda en pantalla al hacer scroll */
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;           /* Siempre encima del contenido */
-  background: rgba(10,14,10,0.95);
-  border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(12px); /* Efecto de vidrio esmerilado */
-  padding: 0 var(--space-md);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 64px;
-  transition: var(--transition);
-}
-
-/* Borde inferior brillante que aparece al hacer scroll */
-#navbar.scrolled {
-  border-bottom-color: var(--green-dim);
-  box-shadow: 0 4px 30px rgba(0,255,136,0.08);
-}
-
-/* Logo / título de la barra */
-.nav-logo {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 1.1rem;
-  color: var(--green-bright);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  text-decoration: none;
-}
-
-/* Indicador parpadeante tipo terminal antes del logo */
-.nav-logo::before {
-  content: '>';
-  animation: blink 1.2s step-end infinite;
-  color: var(--amber);
-}
-
-/* Lista de links de navegación */
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 0.25rem;
-  align-items: center;
-}
-
-/* Cada link del menú */
-.nav-links a {
-  text-decoration: none;
-  color: var(--text-muted);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 0.4rem 0.75rem;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  transition: var(--transition);
-  position: relative;
-}
-
-/* Estado hover y activo del link */
-.nav-links a:hover,
-.nav-links a.active {
-  color: var(--green-bright);
-  border-color: var(--green-dim);
-  background: var(--green-glow);
-}
-
-/* Botón menú hamburguesa (solo en móviles) */
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 4px;
-}
-
-.nav-toggle span {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--green-bright);
-  transition: var(--transition);
-}
-
-/* ── 5. SECCIÓN HERO (INICIO) ────────────────────────────────
-   Pantalla de bienvenida a pantalla completa con animaciones.
-   ─────────────────────────────────────────────────────────── */
-#inicio {
-  min-height: 100vh;           /* Ocupa toda la altura de la pantalla */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: var(--space-xl) var(--space-md);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Círculo decorativo de fondo en el hero */
-#inicio::before {
-  content: '';
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,255,136,0.06) 0%, transparent 70%);
-  animation: pulse 4s ease-in-out infinite;
-}
-
-/* Contenedor del contenido hero */
-.hero-content {
-  position: relative;
-  z-index: 1;
-  max-width: 800px;
-}
-
-/* Etiqueta pequeña arriba del título */
-.hero-badge {
-  display: inline-block;
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--amber);
-  border: 1px solid var(--amber);
-  padding: 0.3rem 1rem;
-  border-radius: 2px;
-  margin-bottom: var(--space-md);
-  animation: fadeInDown 0.8s ease both;
-}
-
-/* Título principal del hero */
-.hero-title {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: clamp(2.5rem, 8vw, 6rem); /* Tamaño responsivo */
-  line-height: 1.0;
-  text-transform: uppercase;
-  letter-spacing: -0.02em;
-  margin-bottom: var(--space-md);
-  animation: fadeInUp 0.8s ease 0.2s both;
-}
-
-/* Primera línea del título en verde brillante */
-.hero-title .line1 { color: var(--green-bright); }
-
-/* Segunda línea del título en blanco semi-transparente */
-.hero-title .line2 {
-  color: rgba(232,245,233,0.4);
-  font-weight: 300;
-}
-
-/* Párrafo descriptivo del hero */
-.hero-desc {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  max-width: 500px;
-  margin: 0 auto var(--space-md);
-  animation: fadeInUp 0.8s ease 0.4s both;
-}
-
-/* Grupo de botones de acción del hero */
-.hero-btns {
-  display: flex;
-  gap: var(--space-sm);
-  justify-content: center;
-  flex-wrap: wrap;
-  animation: fadeInUp 0.8s ease 0.6s both;
-}
-
-/* ── 6. BOTONES ───────────────────────────────────────────────
-   Estilos para los diferentes tipos de botones.
-   ─────────────────────────────────────────────────────────── */
-
-/* Botón primario (fondo verde) */
-.btn-primary {
-  background: var(--green-bright);
-  color: var(--bg-dark);
-  border: 2px solid var(--green-bright);
-  padding: 0.75rem 2rem;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: var(--transition);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.btn-primary:hover {
-  background: transparent;
-  color: var(--green-bright);
-  box-shadow: 0 0 20px var(--green-glow);
-}
-
-/* Botón secundario (solo borde) */
-.btn-outline {
-  background: transparent;
-  color: var(--text-muted);
-  border: 1px solid var(--border);
-  padding: 0.75rem 2rem;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: var(--transition);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.btn-outline:hover {
-  border-color: var(--green-dim);
-  color: var(--green-bright);
-  background: var(--green-glow);
-}
-
-/* ── 7. SECCIONES GENERALES ──────────────────────────────────
-   Estilos base aplicados a todas las secciones informativas.
-   ─────────────────────────────────────────────────────────── */
-.section {
-  padding: var(--space-xl) var(--space-md);
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-/* Divisor entre secciones */
-.section-divider {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--green-dim), transparent);
-  margin: 0 auto;
-}
-
-/* Encabezado de cada sección */
-.section-header {
-  margin-bottom: var(--space-lg);
-}
-
-/* Número/etiqueta de sección */
-.section-tag {
-  display: inline-block;
-  font-size: 0.65rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--green-bright);
-  margin-bottom: var(--space-xs);
-  opacity: 0.8;
-}
-
-/* Título de la sección */
-.section-title {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  text-transform: uppercase;
-  line-height: 1.0;
-  letter-spacing: -0.02em;
-}
-
-/* Subtítulo descriptivo */
-.section-sub {
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  margin-top: var(--space-xs);
-  max-width: 600px;
-}
-
-/* ── 8. TARJETAS (CARDS) ─────────────────────────────────────
-   Componente de tarjeta reutilizable para mostrar conceptos,
-   tipos de mantenimiento, herramientas, etc.
-   ─────────────────────────────────────────────────────────── */
-
-/* Cuadrícula de tarjetas */
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--space-sm);
-}
-
-/* Tarjeta individual */
-.card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: var(--space-md);
-  transition: var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Línea de acento superior en la tarjeta */
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--green-bright);
-  transform: scaleX(0);      /* Empieza invisible */
-  transform-origin: left;
-  transition: var(--transition);
-}
-
-/* Al pasar el mouse: mostrar línea y cambiar fondo */
-.card:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--green-dim);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0,255,136,0.1);
-}
-
-.card:hover::before {
-  transform: scaleX(1);      /* Línea aparece de izquierda a derecha */
-}
-
-/* Icono dentro de la tarjeta */
-.card-icon {
-  font-size: 2rem;
-  margin-bottom: var(--space-sm);
-  display: block;
-}
-
-/* Etiqueta de categoría de la tarjeta */
-.card-tag {
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--amber);
-  margin-bottom: 0.5rem;
-  display: block;
-}
-
-/* Título de la tarjeta */
-.card-title {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.3rem;
-  text-transform: uppercase;
-  color: var(--text-primary);
-  margin-bottom: 0.75rem;
-}
-
-/* Cuerpo de texto de la tarjeta */
-.card-text {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  line-height: 1.8;
-}
-
-/* Variante de tarjeta con acento ámbar */
-.card.amber-accent::before {
-  background: var(--amber);
-}
-
-/* Variante de tarjeta con acento rojo */
-.card.red-accent::before {
-  background: var(--red-alert);
-}
-
-/* ── 9. SECCIÓN CONCEPTOS ────────────────────────────────────
-   Diseño de definición tipo "terminal" con estilo de código.
-   ─────────────────────────────────────────────────────────── */
-.concept-block {
-  background: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--green-bright); /* Barra lateral de acento */
-  border-radius: 4px;
-  padding: var(--space-md);
-  margin-bottom: var(--space-sm);
-  transition: var(--transition);
-}
-
-.concept-block:hover {
-  border-left-color: var(--amber);
-  background: #111c11;
-}
-
-/* Número del concepto */
-.concept-num {
-  font-size: 0.65rem;
-  color: var(--green-bright);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-  opacity: 0.7;
-}
-
-/* Término del concepto */
-.concept-term {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.4rem;
-  text-transform: uppercase;
-  color: var(--text-primary);
-  margin-bottom: 0.75rem;
-}
-
-/* Definición del concepto */
-.concept-def {
-  font-size: 0.82rem;
-  color: var(--text-muted);
-  line-height: 1.9;
-}
-
-/* Palabra destacada dentro de una definición */
-.highlight {
-  color: var(--text-code);
-  background: rgba(168,255,120,0.08);
-  padding: 0 0.3em;
-  border-radius: 2px;
-}
-
-/* ── 10. TABLA DE TIPOS DE MANTENIMIENTO ─────────────────────
-   Tabla comparativa con estilos de cuadrícula de datos.
-   ─────────────────────────────────────────────────────────── */
-.table-wrapper {
-  overflow-x: auto;           /* Scroll horizontal en pantallas pequeñas */
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  margin-top: var(--space-md);
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.8rem;
-}
-
-/* Encabezados de la tabla */
-thead th {
-  background: var(--bg-panel);
-  color: var(--green-bright);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.7rem;
-  padding: 1rem 1.5rem;
-  text-align: left;
-  border-bottom: 1px solid var(--border);
-  white-space: nowrap;
-}
-
-/* Filas del cuerpo de la tabla */
-tbody tr {
-  border-bottom: 1px solid var(--border);
-  transition: var(--transition);
-}
-
-/* Efecto hover en fila de tabla */
-tbody tr:hover {
-  background: rgba(0,255,136,0.04);
-}
-
-/* Última fila sin borde inferior */
-tbody tr:last-child {
-  border-bottom: none;
-}
-
-/* Celdas de datos */
-tbody td {
-  padding: 1rem 1.5rem;
-  color: var(--text-muted);
-  vertical-align: top;
-}
-
-/* Primera columna (nombre del tipo) */
-tbody td:first-child {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-/* Badge de estado/criticidad */
-.badge {
-  display: inline-block;
-  padding: 0.2em 0.7em;
-  border-radius: 2px;
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-
-.badge-green  { background: rgba(0,255,136,0.15); color: var(--green-bright); }
-.badge-amber  { background: var(--amber-dim);     color: var(--amber); }
-.badge-red    { background: rgba(255,68,68,0.15); color: var(--red-alert); }
-.badge-blue   { background: rgba(0,136,255,0.15); color: #44aaff; }
-
-/* ── 11. SECCIÓN HERRAMIENTAS ────────────────────────────────
-   Lista de herramientas con icono y barra de uso.
-   ─────────────────────────────────────────────────────────── */
-.tools-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--space-sm);
-}
-
-/* Elemento de herramienta */
-.tool-item {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 1.25rem var(--space-md);
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-  transition: var(--transition);
-}
-
-.tool-item:hover {
-  border-color: var(--green-dim);
-  background: var(--bg-card-hover);
-}
-
-/* Icono de la herramienta */
-.tool-icon {
-  font-size: 1.5rem;
-  flex-shrink: 0;
-  margin-top: 0.1rem;
-}
-
-/* Nombre de la herramienta */
-.tool-name {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1rem;
-  text-transform: uppercase;
-  color: var(--text-primary);
-  margin-bottom: 0.25rem;
-}
-
-/* Descripción de la herramienta */
-.tool-desc {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  line-height: 1.7;
-}
-
-/* Categoría de la herramienta */
-.tool-cat {
-  font-size: 0.6rem;
-  color: var(--green-bright);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  margin-bottom: 0.25rem;
-}
-
-/* ── 12. SECCIÓN PROCEDIMIENTOS ──────────────────────────────
-   Pasos numerados con línea vertical conectora.
-   ─────────────────────────────────────────────────────────── */
-.steps-list {
-  position: relative;
-  padding-left: 3rem;
-}
-
-/* Línea vertical que conecta los pasos */
-.steps-list::before {
-  content: '';
-  position: absolute;
-  left: 0.85rem;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: linear-gradient(180deg, var(--green-bright), transparent);
-}
-
-/* Paso individual */
-.step-item {
-  position: relative;
-  margin-bottom: var(--space-md);
-  padding: var(--space-md);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  transition: var(--transition);
-}
-
-.step-item:hover {
-  border-color: var(--green-dim);
-  transform: translateX(4px);
-}
-
-/* Número del paso (círculo verde) */
-.step-item::before {
-  content: attr(data-step);  /* Toma el valor del atributo data-step */
-  position: absolute;
-  left: -3rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1.7rem;
-  height: 1.7rem;
-  background: var(--bg-dark);
-  border: 1px solid var(--green-bright);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.65rem;
-  color: var(--green-bright);
-  font-weight: 700;
-}
-
-/* Título del paso */
-.step-title {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.1rem;
-  text-transform: uppercase;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-}
-
-/* Descripción del paso */
-.step-desc {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  line-height: 1.8;
-}
-
-/* ── 13. SECCIÓN CONTACTO ────────────────────────────────────
-   Formulario de contacto y datos de referencia.
-   ─────────────────────────────────────────────────────────── */
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-md);
-  align-items: start;
-}
-
-/* Panel de información de contacto */
-.contact-info {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-/* Elemento de dato de contacto */
-.contact-item {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-  padding: 1rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-}
-
-.contact-item-icon {
-  font-size: 1.2rem;
-  flex-shrink: 0;
-}
-
-.contact-item-label {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--green-bright);
-  margin-bottom: 0.25rem;
-}
-
-.contact-item-value {
-  font-size: 0.8rem;
-  color: var(--text-primary);
-}
-
-/* Formulario de contacto */
-.contact-form {
-  background: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: var(--space-md);
-}
-
-.form-title {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  color: var(--text-primary);
-  margin-bottom: var(--space-md);
-  padding-bottom: var(--space-sm);
-  border-bottom: 1px solid var(--border);
-}
-
-/* Grupo de campo del formulario */
-.form-group {
-  margin-bottom: 1.25rem;
-}
-
-/* Etiqueta del campo */
-.form-group label {
-  display: block;
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 0.5rem;
-}
-
-/* Input y textarea del formulario */
-.form-group input,
-.form-group textarea,
-.form-group select {
-  width: 100%;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 0.75rem 1rem;
-  color: var(--text-primary);
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  transition: var(--transition);
-  appearance: none;
-}
-
-/* Estado focus del campo (al hacer click) */
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-  outline: none;
-  border-color: var(--green-bright);
-  background: var(--bg-card-hover);
-  box-shadow: 0 0 0 3px var(--green-glow);
-}
-
-/* Área de texto más alta */
-.form-group textarea {
-  min-height: 120px;
-  resize: vertical;
-  line-height: 1.7;
-}
-
-/* ── 14. PIE DE PÁGINA ───────────────────────────────────────
-   Footer con información del proyecto.
-   ─────────────────────────────────────────────────────────── */
-footer {
-  border-top: 1px solid var(--border);
-  background: var(--bg-panel);
-  padding: var(--space-md);
-  text-align: center;
-}
-
-.footer-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-sm);
-  flex-wrap: wrap;
-}
-
-.footer-copy {
-  font-size: 0.7rem;
-  color: var(--text-muted);
-}
-
-/* Marca de tiempo en el footer */
-.footer-time {
-  font-size: 0.65rem;
-  color: var(--green-bright);
-  opacity: 0.6;
-  letter-spacing: 0.1em;
-}
-
-/* ── 15. BOTÓN DE SUBIR AL INICIO ───────────────────────────
-   Botón flotante para volver arriba al hacer scroll.
-   ─────────────────────────────────────────────────────────── */
-#back-to-top {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 999;
-  width: 44px;
-  height: 44px;
-  background: var(--bg-dark);
-  border: 1px solid var(--green-dim);
-  border-radius: 4px;
-  color: var(--green-bright);
-  font-size: 1.2rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: var(--transition);
-}
-
-/* Aparece cuando el usuario hace scroll */
-#back-to-top.visible {
-  opacity: 1;
-  visibility: visible;
-}
-
-#back-to-top:hover {
-  background: var(--green-glow);
-  border-color: var(--green-bright);
-  box-shadow: 0 0 20px var(--green-glow);
-}
-
-/* ── 16. STAT COUNTERS ───────────────────────────────────────
-   Estadísticas numéricas grandes con label descriptivo.
-   ─────────────────────────────────────────────────────────── */
-.stats-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-sm);
-  margin: var(--space-lg) 0;
-}
-
-.stat-item {
-  text-align: center;
-  padding: var(--space-md);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-}
-
-/* Número grande de la estadística */
-.stat-num {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 2.5rem;
-  color: var(--green-bright);
-  line-height: 1;
-  margin-bottom: 0.5rem;
-}
-
-/* Texto descriptivo debajo del número */
-.stat-label {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--text-muted);
-}
-
-/* ── 17. BARRA DE PROGRESO DE LECTURA ────────────────────────
-   Indicador de progreso del scroll de la página.
-   ─────────────────────────────────────────────────────────── */
-#progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  background: var(--green-bright);
-  z-index: 9999;
-  width: 0%;             /* Se actualiza con JavaScript */
-  transition: width 0.1s linear;
-  box-shadow: 0 0 8px var(--green-bright);
-}
-
-/* ── 18. ANIMACIONES (KEYFRAMES) ─────────────────────────────
-   Definición de animaciones CSS utilizadas en la página.
-   ─────────────────────────────────────────────────────────── */
-
-/* Elemento que aparece desde arriba */
-@keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Elemento que aparece desde abajo */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Efecto de pulsación suave (para el fondo del hero) */
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50%       { transform: scale(1.05); opacity: 0.7; }
-}
-
-/* Cursor parpadeante tipo terminal */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
-}
-
-/* Elemento que entra desde la izquierda */
-@keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-30px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-/* Clase para animar elementos al entrar en vista (activada por JS) */
-.animate-in {
-  animation: fadeInUp 0.6s ease both;
-}
-
-/* ── 19. DISEÑO RESPONSIVO ───────────────────────────────────
-   Ajustes para pantallas medianas (tablets) y pequeñas (móviles).
-   ─────────────────────────────────────────────────────────── */
-
-/* Tablet: max 768px */
-@media (max-width: 768px) {
-  /* Mostrar botón de hamburguesa */
-  .nav-toggle { display: flex; }
-
-  /* Ocultar links del menú por defecto */
-  .nav-links {
-    display: none;
-    position: absolute;
-    top: 64px;
-    left: 0;
-    right: 0;
-    background: rgba(10,14,10,0.98);
-    border-bottom: 1px solid var(--border);
-    flex-direction: column;
-    padding: var(--space-sm);
-    gap: 0.5rem;
+  radial-gradient(circle at top left, rgba(0,255,136,0.15), transparent 30%),
+  radial-gradient(circle at bottom right, rgba(0,191,255,0.12), transparent 30%),
+  linear-gradient(to bottom, #07110c, #0d1b14);
+}
+
+/* ===== NAVBAR ===== */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  height:75px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:0 8%;
+
+  background: rgba(7,17,12,0.85);
+
+  backdrop-filter: blur(12px);
+
+  border-bottom:1px solid rgba(255,255,255,0.08);
+
+  z-index:1000;
+}
+
+/* Logo */
+.logo{
+  color:var(--green);
+
+  font-size:1.3rem;
+
+  font-weight:700;
+
+  font-family:var(--font-code);
+
+  text-shadow:0 0 12px rgba(0,255,136,0.5);
+}
+
+/* Menú */
+.menu{
+  display:flex;
+  list-style:none;
+  gap:25px;
+}
+
+.menu a{
+  text-decoration:none;
+
+  color:var(--text-soft);
+
+  transition:0.3s;
+
+  position:relative;
+}
+
+/* Línea animada */
+.menu a::after{
+  content:'';
+
+  position:absolute;
+
+  left:0;
+  bottom:-5px;
+
+  width:0%;
+  height:2px;
+
+  background:var(--green);
+
+  transition:0.3s;
+}
+
+.menu a:hover{
+  color:var(--green);
+}
+
+.menu a:hover::after{
+  width:100%;
+}
+
+/* ===== HERO ===== */
+.hero{
+  min-height:100vh;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  text-align:center;
+
+  padding:120px 8% 80px;
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+/* Fondo brillante */
+.hero::before{
+  content:'';
+
+  position:absolute;
+
+  width:700px;
+  height:700px;
+
+  background:radial-gradient(circle, rgba(0,255,136,0.18), transparent 70%);
+
+  top:-200px;
+  right:-200px;
+
+  border-radius:50%;
+}
+
+/* Contenido */
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:850px;
+}
+
+.hero h1{
+  font-size:4.5rem;
+
+  line-height:1.1;
+
+  margin-bottom:25px;
+
+  color:var(--green);
+
+  text-shadow:0 0 20px rgba(0,255,136,0.3);
+}
+
+.hero p{
+  color:var(--text-soft);
+
+  font-size:1.1rem;
+
+  line-height:1.9;
+
+  margin-bottom:40px;
+}
+
+/* Botón */
+.btn{
+  display:inline-block;
+
+  padding:15px 40px;
+
+  background:linear-gradient(135deg, var(--green), var(--blue));
+
+  color:#000;
+
+  border-radius:10px;
+
+  text-decoration:none;
+
+  font-weight:700;
+
+  transition:0.3s;
+}
+
+.btn:hover{
+  transform:translateY(-5px) scale(1.03);
+
+  box-shadow:0 10px 30px rgba(0,255,136,0.3);
+}
+
+/* ===== SECCIONES ===== */
+.section{
+  padding:100px 8%;
+  position:relative;
+}
+
+/* Fondo alternativo */
+.dark-section{
+  background:
+  linear-gradient(to right,
+  rgba(255,255,255,0.02),
+  rgba(255,255,255,0.01));
+
+  border-top:1px solid rgba(255,255,255,0.05);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+/* Títulos */
+.section h2{
+  text-align:center;
+
+  font-size:3rem;
+
+  margin-bottom:60px;
+
+  color:var(--green);
+
+  text-shadow:0 0 10px rgba(0,255,136,0.2);
+}
+
+/* ===== ESTADÍSTICAS ===== */
+.stats{
+  display:grid;
+
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+  gap:25px;
+
+  padding:90px 8%;
+}
+
+/* Caja */
+.stat-box{
+  background:rgba(19,33,26,0.8);
+
+  border:1px solid rgba(255,255,255,0.05);
+
+  backdrop-filter:blur(10px);
+
+  border-radius:15px;
+
+  padding:40px 20px;
+
+  text-align:center;
+
+  transition:0.3s;
+}
+
+.stat-box:hover{
+  transform:translateY(-8px);
+
+  border-color:rgba(0,255,136,0.3);
+
+  box-shadow:0 15px 40px rgba(0,255,136,0.15);
+}
+
+.stat-box h2{
+  color:var(--green);
+
+  font-size:3rem;
+
+  margin-bottom:10px;
+}
+
+.stat-box p{
+  color:var(--text-soft);
+}
+
+/* ===== CARDS ===== */
+.cards{
+  display:grid;
+
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+  gap:30px;
+}
+
+/* Card */
+.card{
+  background:rgba(19,33,26,0.85);
+
+  border:1px solid rgba(255,255,255,0.05);
+
+  border-radius:18px;
+
+  padding:35px;
+
+  backdrop-filter:blur(12px);
+
+  transition:0.4s;
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+/* Línea decorativa */
+.card::before{
+  content:'';
+
+  position:absolute;
+
+  top:0;
+  left:0;
+
+  width:100%;
+  height:4px;
+
+  background:linear-gradient(to right, var(--green), var(--blue));
+}
+
+/* Hover */
+.card:hover{
+  transform:translateY(-10px);
+
+  background:var(--card-hover);
+
+  box-shadow:0 15px 45px rgba(0,255,136,0.15);
+}
+
+.card h3{
+  color:var(--green);
+
+  margin-bottom:15px;
+
+  font-size:1.4rem;
+}
+
+.card p{
+  color:var(--text-soft);
+
+  line-height:1.8;
+}
+
+/* ===== HERRAMIENTAS ===== */
+.tools{
+  display:grid;
+
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+  gap:25px;
+}
+
+/* Tool */
+.tool{
+  background:rgba(19,33,26,0.85);
+
+  border:1px solid rgba(255,255,255,0.05);
+
+  padding:30px;
+
+  border-radius:15px;
+
+  text-align:center;
+
+  transition:0.3s;
+
+  font-weight:600;
+
+  backdrop-filter:blur(10px);
+}
+
+.tool:hover{
+  transform:scale(1.05);
+
+  background:var(--card-hover);
+
+  color:var(--green);
+
+  box-shadow:0 10px 30px rgba(0,255,136,0.15);
+}
+
+/* ===== PROCEDIMIENTOS ===== */
+.steps{
+  max-width:750px;
+
+  margin:auto;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:20px;
+}
+
+.steps li{
+  background:rgba(19,33,26,0.9);
+
+  border-left:5px solid var(--green);
+
+  padding:22px 28px;
+
+  border-radius:12px;
+
+  color:var(--text-soft);
+
+  line-height:1.8;
+
+  transition:0.3s;
+}
+
+.steps li:hover{
+  transform:translateX(8px);
+
+  background:var(--card-hover);
+}
+
+/* ===== FORMULARIO ===== */
+.contact-form{
+  max-width:700px;
+
+  margin:auto;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:20px;
+}
+
+/* Inputs */
+.contact-form input,
+.contact-form textarea{
+  background:rgba(19,33,26,0.9);
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  padding:16px;
+
+  border-radius:12px;
+
+  color:var(--text);
+
+  font-size:1rem;
+
+  backdrop-filter:blur(10px);
+}
+
+/* Focus */
+.contact-form input:focus,
+.contact-form textarea:focus{
+  outline:none;
+
+  border-color:var(--green);
+
+  box-shadow:0 0 15px rgba(0,255,136,0.2);
+}
+
+.contact-form textarea{
+  min-height:160px;
+  resize:vertical;
+}
+
+/* Botón */
+.contact-form button{
+  background:linear-gradient(135deg, var(--green), var(--blue));
+
+  color:#000;
+
+  border:none;
+
+  padding:16px;
+
+  border-radius:12px;
+
+  font-weight:700;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.contact-form button:hover{
+  transform:translateY(-4px);
+
+  box-shadow:0 10px 25px rgba(0,255,136,0.25);
+}
+
+/* ===== FOOTER ===== */
+footer{
+  padding:35px;
+
+  text-align:center;
+
+  background:#08110d;
+
+  border-top:1px solid rgba(255,255,255,0.05);
+}
+
+footer p{
+  color:var(--text-soft);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+
+  .navbar{
+    flex-direction:column;
+    height:auto;
+    padding:20px;
   }
 
-  /* Mostrar links cuando el menú está abierto */
-  .nav-links.open { display: flex; }
+  .menu{
+    margin-top:15px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
 
-  /* Una columna en móvil para la grilla de contacto */
-  .contact-grid { grid-template-columns: 1fr; }
+  .hero h1{
+    font-size:3rem;
+  }
 
-  /* Una columna para estadísticas */
-  .stats-row { grid-template-columns: repeat(2, 1fr); }
-
-  /* Quitar padding extra del hero */
-  #inicio { padding-top: 80px; }
-
-  /* Ajustar pasos sin margen lateral */
-  .steps-list { padding-left: 2rem; }
 }
 
-/* Móvil pequeño: max 480px */
-@media (max-width: 480px) {
-  .stats-row { grid-template-columns: 1fr 1fr; }
-  .section { padding: var(--space-lg) var(--space-sm); }
-  .hero-btns { flex-direction: column; align-items: center; }
+@media(max-width:600px){
+
+  .hero h1{
+    font-size:2.2rem;
+  }
+
+  .section h2{
+    font-size:2rem;
+  }
+
+  .btn{
+    width:100%;
+  }
+
 }
-
-
-
-/* =========================================================
-   ESPACIADO Y SEPARACIÓN DE CONTENIDO
-========================================================= */
-
-section{
-  padding: 5rem 8%;
-}
-
-section h2{
-  margin-bottom: 2rem;
-}
-
-section h3{
-  margin-bottom: 1rem;
-}
-
-section p{
-  margin-bottom: 1.5rem;
-}
-
-section div{
-  margin-bottom: 2rem;
-}
-
-#conceptos div,
-#tipos div{
-  padding: 2rem;
-}
-
-ul,
-ol{
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-  padding-left: 2rem;
-}
-
-li{
-  margin-bottom: 1rem;
-}
-
-form{
-  margin-top: 2rem;
-}
-
-input,
-textarea,
-button{
-  margin-bottom: 1rem;
-}
-
-footer{
-  margin-top: 3rem;
-}
-
-#inicio{
-  padding-top: 8rem;
-  padding-bottom: 8rem;
-}
-
-#inicio a{
-  display: inline-block;
-  margin-top: 1.5rem;
-}
-
-nav{
-  padding: 1rem 2rem;
-}
-
-nav ul{
-  gap: 1rem;
-}
+```
