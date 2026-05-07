@@ -1053,3 +1053,77 @@ footer {
   .section { padding: var(--space-lg) var(--space-sm); }
   .hero-btns { flex-direction: column; align-items: center; }
 }
+
+
+
+/* =========================================================
+   ESPACIADO Y SEPARACIÓN DE CONTENIDO
+========================================================= */
+
+section{
+  padding: 5rem 8%;
+}
+
+section h2{
+  margin-bottom: 2rem;
+}
+
+section h3{
+  margin-bottom: 1rem;
+}
+
+section p{
+  margin-bottom: 1.5rem;
+}
+
+section div{
+  margin-bottom: 2rem;
+}
+
+#conceptos div,
+#tipos div{
+  padding: 2rem;
+}
+
+ul,
+ol{
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  padding-left: 2rem;
+}
+
+li{
+  margin-bottom: 1rem;
+}
+
+form{
+  margin-top: 2rem;
+}
+
+input,
+textarea,
+button{
+  margin-bottom: 1rem;
+}
+
+footer{
+  margin-top: 3rem;
+}
+
+#inicio{
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
+#inicio a{
+  display: inline-block;
+  margin-top: 1.5rem;
+}
+
+nav{
+  padding: 1rem 2rem;
+}
+
+nav ul{
+  gap: 1rem;
+}
