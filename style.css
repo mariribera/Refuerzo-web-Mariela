@@ -20,8 +20,8 @@
    ─────────────────────────────────────────────────────────── */
 :root {
   /* Colores primarios */
-  --bg-dark:      #0a0e0a;        /* Fondo principal casi negro */
-  --bg-panel:     #0f1a0f;        /* Fondo de paneles y secciones */
+  --bg-dark:      #131613;        /* Fondo principal casi negro */
+  --bg-panel:     #7d8042;        /* Fondo de paneles y secciones */
   --bg-card:      #132213;        /* Fondo de tarjetas */
   --bg-card-hover:#1a2e1a;        /* Fondo de tarjeta al pasar el mouse */
 
@@ -36,7 +36,7 @@
   --amber-dim:    rgba(255,183,0,0.15);
 
   /* Acento rojo (alertas, errores) */
-  --red-alert:    #44ffff;
+  --red-alert:    #10e0e0;
 
   /* Textos */
   --text-primary: #e8f5e9;        /* Texto principal muy claro */
