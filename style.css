@@ -1,4 +1,4 @@
-```css
+css
 /* ======================================================
    style.css
    Diseño moderno con efectos visuales
@@ -6,6 +6,11 @@
 
 /* ===== FUENTES ===== */
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+}
 
 /* ===== VARIABLES ===== */
 :root{
@@ -38,7 +43,7 @@
   --text: #490404;
 
   /* Color secundario del texto */
-  --text-soft: #ea1216;
+  --text-soft: #110f0f;
 
   /* Color de bordes */
   --border: #78cfa6;
@@ -676,4 +681,4 @@ footer p{
   }
 
 }
-```
+
